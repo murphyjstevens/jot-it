@@ -5,23 +5,61 @@ import MarkdownIt from 'markdown-it'
 const markdownIt = new MarkdownIt()
 
 const markdown = ref('')
+const isMarkdownVisible = ref(true)
+const isDisplayVisible = ref(true)
 
 const markdownHtml = computed(() => markdownIt.render(markdown.value))
+
+function setVisible(isVisible: boolean, isMarkdown: boolean): void {
+  if (isMarkdown) {
+    isMarkdownVisible.value = isVisible
+  } else {
+    isDisplayVisible.value = isVisible
+  }
+}
 </script>
 
 <template>
   <div class="flex-row justify-content-center mt-1">
     <div class="markdown-wrapper flex-row justify-content-space-between">
-      <div class="flex-column markdown-column">
-        <label for="markdown">Markdown</label>
+      <div
+        class="flex-column markdown-column"
+        :class="{ hidden: !isMarkdownVisible }"
+      >
+        <div class="flex-row justify-content-space-between mr-1 ml-1">
+          <label for="markdown">Markdown</label>
+          <button
+            @click="setVisible(false, true)"
+            :disabled="!isDisplayVisible"
+            class="mb-1"
+          >
+            Hide
+          </button>
+        </div>
         <textarea
           id="markdown"
           v-model="markdown"
-          class="markdown-area mr-1"
+          class="markdown-area"
         ></textarea>
       </div>
-      <div class="flex-column markdown-column">
-        <label for="html">Display</label>
+      <div
+        class="markdown-column-spacer"
+        :class="{ hidden: !isDisplayVisible || !isMarkdownVisible }"
+      ></div>
+      <div
+        class="flex-column markdown-column"
+        :class="{ hidden: !isDisplayVisible }"
+      >
+        <div class="flex-row justify-content-space-between mr-1 ml-1">
+          <label for="html">Display</label>
+          <button
+            @click="setVisible(false, false)"
+            :disabled="!isMarkdownVisible"
+            class="mb-1"
+          >
+            Hide
+          </button>
+        </div>
         <div id="html" v-html="markdownHtml" class="markdown-area"></div>
       </div>
     </div>
@@ -34,7 +72,11 @@ const markdownHtml = computed(() => markdownIt.render(markdown.value))
 }
 
 .markdown-column {
-  width: 50%;
+  width: 100%;
+}
+
+.markdown-column-spacer {
+  width: 1rem;
 }
 
 .markdown-area {

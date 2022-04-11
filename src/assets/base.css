@@ -74,3 +74,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+input:disabled, textarea:disabled, button:disabled {
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none !important;
+}
