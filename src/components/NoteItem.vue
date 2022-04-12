@@ -22,6 +22,22 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
 <template>
   <div class="flex-row justify-content-center mt-1">
     <div class="markdown-wrapper flex-row justify-content-space-between">
+      <button
+        title="Show Markdown"
+        @click="setVisible(true, true)"
+        class="floating-show-markdown"
+        :class="{ hidden: isMarkdownVisible }"
+      >
+        Show
+      </button>
+      <button
+        title="Show Display"
+        @click="setVisible(true, false)"
+        class="floating-show-display"
+        :class="{ hidden: isDisplayVisible }"
+      >
+        Show
+      </button>
       <div
         class="flex-column markdown-column"
         :class="{ hidden: !isMarkdownVisible }"
@@ -86,5 +102,17 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
   border: 1px solid #444;
   border-radius: 4px;
   padding: 12px 20px;
+}
+
+.floating-show-markdown {
+  position: absolute;
+  left: -3rem;
+  top: 2rem;
+}
+
+.floating-show-display {
+  position: absolute;
+  right: -3rem;
+  top: 2rem;
 }
 </style>
