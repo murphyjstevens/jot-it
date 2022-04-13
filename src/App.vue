@@ -21,7 +21,8 @@ import TheHeader from './components/TheHeader.vue'
 @import './assets/spacing.scss';
 
 main {
-  max-width: 1280px;
+  width: 100%;
+  padding: 0px 10px;
 }
 
 a,

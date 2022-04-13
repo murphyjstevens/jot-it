@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import MarkdownIt from 'markdown-it'
+import { router } from '@/router';
 
 const markdownIt = new MarkdownIt()
 
@@ -17,11 +18,15 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
     isDisplayVisible.value = isVisible
   }
 }
+
+function goTo(tag: string) {
+  router.push(`#${tag}`)
+}
 </script>
 
 <template>
   <div class="flex-row justify-content-center mt-1">
-    <div class="markdown-wrapper flex-row justify-content-space-between">
+    <div id="markdown" class="markdown-wrapper justify-content-space-between">
       <button
         title="Show markdown"
         @click="setVisible(true, true)"
@@ -51,9 +56,16 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
             title="Hide markdown"
             @click="setVisible(false, true)"
             :disabled="!isDisplayVisible"
-            class="mb-1"
+            class="hide-button mb-1"
           >
             <i class="bi-eye-slash-fill"></i>
+          </button>
+          <button
+            title="Go to display"
+            @click="goTo('display')"
+            class="goto-button mb-1"
+          >
+            <i class="bi-eyeglasses"></i>
           </button>
         </div>
         <textarea
@@ -73,15 +85,25 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
           'maximized-column': !isMarkdownVisible,
         }"
       >
-        <div class="flex-row justify-content-space-between mr-1 ml-1">
+        <div
+          id="display"
+          class="flex-row justify-content-space-between mr-1 ml-1"
+        >
           <label for="html">Display</label>
           <button
             title="Hide display"
             @click="setVisible(false, false)"
             :disabled="!isMarkdownVisible"
-            class="mb-1"
+            class="hide-button mb-1"
           >
             <i class="bi-eye-slash-fill"></i>
+          </button>
+          <button
+            title="Go to display"
+            @click="goTo('markdown')"
+            class="goto-button mb-1"
+          >
+            <i class="bi-pencil-fill"></i>
           </button>
         </div>
         <div id="html" v-html="markdownHtml" class="markdown-area"></div>
@@ -91,7 +113,10 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
 </template>
 
 <style scoped lang="scss">
+// breakpoints: 1024, 768, 640
 .markdown-wrapper {
+  display: flex;
+  flex-direction: row;
   width: 1000px;
 }
 
@@ -162,6 +187,49 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
 
   &-display {
     transform: translateX(-3rem);
+  }
+}
+
+.goto-button {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .markdown-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .markdown-column {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .markdown-column-spacer {
+    display: none;
+  }
+
+  .floating-show {
+    display: none;
+  }
+
+  .minimized-column {
+    overflow: inherit;
+    width: inherit;
+    opacity: inherit;
+
+    textarea {
+      text-overflow: inherit;
+      overflow: inherit;
+      white-space: inherit;
+    }
+  }
+
+  .hide-button {
+    display: none;
+  }
+
+  .goto-button {
+    display: inherit;
   }
 }
 </style>
