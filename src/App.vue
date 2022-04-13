@@ -18,6 +18,7 @@ import NoteItem from './components/NoteItem.vue'
 @import './assets/flex.css';
 @import './assets/inputs.css';
 @import './assets/spacing.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 main {
   max-width: 1280px;
