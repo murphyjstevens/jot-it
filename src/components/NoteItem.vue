@@ -90,7 +90,7 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .markdown-wrapper {
   width: 1000px;
 }
@@ -112,12 +112,12 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
   width: 0px;
   opacity: 0;
   transition: width 0.5s ease-out, opacity 0.5s ease-in;
-}
 
-.minimized-column textarea {
-  text-overflow: clip;
-  overflow: hidden;
-  white-space: pre;
+  textarea {
+    text-overflow: clip;
+    overflow: hidden;
+    white-space: pre;
+  }
 }
 
 .maximized-column {
@@ -140,28 +140,28 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
   top: 2rem;
   transition: transform 0.5s ease-out, opacity 0.5s ease-in 0.3s;
   z-index: 1;
+
+  &-markdown {
+    left: -1.5rem;
+    border-radius: 10px 0px 0px 10px;
+  }
+
+  &-display {
+    right: -1.5rem;
+    border-radius: 0px 10px 10px 0px;
+  }
 }
 
 .hiding-show {
   opacity: 0;
   transition: transform 0.5s ease-out, opacity 0.2s linear;
-}
 
-.floating-show-markdown {
-  left: -1.5rem;
-  border-radius: 10px 0px 0px 10px;
-}
+  &-markdown {
+    transform: translateX(3rem);
+  }
 
-.hiding-show-markdown {
-  transform: translateX(3rem);
-}
-
-.floating-show-display {
-  right: -1.5rem;
-  border-radius: 0px 10px 10px 0px;
-}
-
-.hiding-show-display {
-  transform: translateX(-3rem);
+  &-display {
+    transform: translateX(-3rem);
+  }
 }
 </style>
