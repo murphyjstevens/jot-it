@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import MarkdownIt from 'markdown-it'
-import { router } from '@/router';
+import { router } from '@/router'
 
 const markdownIt = new MarkdownIt()
 
