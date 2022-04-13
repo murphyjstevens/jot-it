@@ -13,7 +13,8 @@
     "bootstrap-icons": "^1.8.1",
     "markdown-it": "^12.3.2",
     "pinia": "^2.0.13",
-    "vue": "^3.2.31"
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.14"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

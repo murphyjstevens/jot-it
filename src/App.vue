@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import TheHeader from './components/TheHeader.vue'
-import NoteItem from './components/NoteItem.vue'
 </script>
 
 <template>
@@ -8,17 +7,18 @@ import NoteItem from './components/NoteItem.vue'
     <TheHeader />
 
     <main class="align-center">
-      <NoteItem />
+      <router-view></router-view>
     </main>
   </div>
 </template>
 
-<style>
+<style lang="scss">
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
 @import './assets/base.css';
 @import './assets/flex.css';
 @import './assets/inputs.css';
-@import './assets/spacing.css';
-@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import './assets/spacing.scss';
 
 main {
   max-width: 1280px;

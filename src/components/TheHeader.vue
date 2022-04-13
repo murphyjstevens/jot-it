@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1><a href="/">Jot-It</a></h1>
+    <h1><router-link to="/">Jot-It</router-link></h1>
   </header>
 </template>
 
