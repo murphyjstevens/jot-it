@@ -1,16 +1,24 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  type RouteLocationNormalized,
+} from 'vue-router'
 
 import NoteItem from './components/NoteItem.vue'
 import NoteList from './components/NoteList.vue'
 
 const routes = [
   { path: '/', name: 'NoteList', component: NoteList },
-  { path: '/Notes/:id', name: 'NoteItem', component: NoteItem },
+  { path: '/notes/new', name: 'NewNoteItem', component: NoteItem },
+  { path: '/notes/:id?', name: 'NoteItem', component: NoteItem },
 ]
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const scrollBehavior = (to: any, from: any, savedPosition: any) => {
-  //https://router.vuejs.org/guide/advanced/scroll-behavior.html
+const scrollBehavior = (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  savedPosition: any | null
+) => {
   if (to.hash) {
     return { el: to.hash, behavior: 'smooth' }
   } else if (savedPosition) {

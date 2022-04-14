@@ -18,7 +18,7 @@ const notes: Ref<Array<Note>> = ref(noteStore.notes)
       v-bind:key="note.id"
       class="card flex-column mt-4 ml-4 mr-4"
     >
-      <router-link class="card-title" :to="`/Notes/${note.id}`"
+      <router-link class="card-title" :to="`/notes/${note.id}`"
         >Note link</router-link
       >
       <div class="grid">

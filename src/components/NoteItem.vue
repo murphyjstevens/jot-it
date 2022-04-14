@@ -35,8 +35,15 @@ function goTo(tag: string) {
 </script>
 
 <template>
-  <div class="flex-row justify-content-center mt-1">
-    <div id="markdown" class="markdown-wrapper justify-content-space-between">
+  <div class="flex-column align-items-center mt-1">
+    <div class="flex-column">
+      <label for="title">Title</label>
+      <input id="title" />
+    </div>
+    <div
+      id="markdown"
+      class="markdown-wrapper justify-content-space-between mt-2"
+    >
       <button
         title="Show markdown"
         @click="setVisible(true, true)"
