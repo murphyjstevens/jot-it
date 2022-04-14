@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import MarkdownIt from 'markdown-it'
-import { router } from '@/router'
 
+import { router } from '@/router'
+import { useNoteStore } from '@/stores/note'
+import type { Note } from '@/models/note.model'
+
+const route = useRoute()
+const noteStore = useNoteStore()
 const markdownIt = new MarkdownIt()
 
-const markdown = ref('')
+const noteId: number = +route.params.id
+
+const note: Note = noteStore.notes.find((n) => n.id === noteId) ?? ({} as Note)
+
+const markdown = ref(note.markdownText ?? '')
 const isMarkdownVisible = ref(true)
 const isDisplayVisible = ref(true)
 

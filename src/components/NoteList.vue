@@ -1,13 +1,32 @@
+<script setup lang="ts">
+import { ref, type Ref } from 'vue'
+
+import { useNoteStore } from '../stores/note'
+import type { Note } from '../models/note.model'
+
+const noteStore = useNoteStore()
+
+noteStore.load()
+
+const notes: Ref<Array<Note>> = ref(noteStore.notes)
+</script>
+
 <template>
   <div class="container flex-row justify-content-center">
-    <div class="card flex-column mt-4">
-      <router-link class="card-title" to="/Notes/1">Note link</router-link>
+    <div
+      v-for="note in notes"
+      v-bind:key="note.id"
+      class="card flex-column mt-4"
+    >
+      <router-link class="card-title" :to="`/Notes/${note.id}`"
+        >Note link</router-link
+      >
       <div class="grid">
         <span>Creator:</span>
-        <span class="grid-result">Murphy</span>
+        <span class="grid-result">{{ note.creatorId }}</span>
 
         <span>Updated:</span>
-        <span class="grid-result">12/2/2020</span>
+        <span class="grid-result">{{ note.updatedDate }}</span>
       </div>
     </div>
   </div>
