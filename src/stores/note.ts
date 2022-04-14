@@ -29,6 +29,7 @@ export const useNoteStore = defineStore('note', {
         ...this.notes.filter((n) => n.id !== updatedNote.id),
         updatedNote,
       ]
+      localStorage.setItem('notes', JSON.stringify(this.notes))
     },
   },
 })

@@ -16,7 +16,7 @@ const notes: Ref<Array<Note>> = ref(noteStore.notes)
     <div
       v-for="note in notes"
       v-bind:key="note.id"
-      class="card flex-column mt-4"
+      class="card flex-column mt-4 ml-4 mr-4"
     >
       <router-link class="card-title" :to="`/Notes/${note.id}`"
         >Note link</router-link
@@ -26,7 +26,9 @@ const notes: Ref<Array<Note>> = ref(noteStore.notes)
         <span class="grid-result">{{ note.creatorId }}</span>
 
         <span>Updated:</span>
-        <span class="grid-result">{{ note.updatedDate }}</span>
+        <span class="grid-result">{{
+          note.updatedDate?.toLocaleDateString('en-us')
+        }}</span>
       </div>
     </div>
   </div>
