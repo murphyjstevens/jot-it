@@ -13,6 +13,8 @@ const markdownIt = new MarkdownIt()
 
 const noteId: number = +route.params.id
 
+noteStore.load()
+
 const note: Ref<Note> = ref(
   noteStore.notes.find((n) => n.id === noteId) ?? ({ markdownText: '' } as Note)
 )
@@ -20,7 +22,13 @@ const note: Ref<Note> = ref(
 const isMarkdownVisible = ref(true)
 const isDisplayVisible = ref(true)
 
-const markdownHtml = computed(() => markdownIt.render(note.value.markdownText))
+const markdownHtml: Ref<string> = computed(() =>
+  markdownIt.render(note.value.markdownText)
+)
+
+const canSave: Ref<boolean> = computed(
+  () => !!note?.value?.markdownText && !!note.value.title
+)
 
 function setVisible(isVisible: boolean, isMarkdown: boolean): void {
   if (isMarkdown) {
@@ -35,104 +43,112 @@ function goTo(tag: string) {
 }
 
 function save() {
-  noteStore.saveNote(note.value)
+  if (canSave.value) {
+    noteStore.saveNote(note.value)
+  }
 }
 </script>
 
 <template>
-  <div class="flex-column align-items-center mt-1">
-    <div class="flex-row">
-      <div class="flex-column">
-        <label for="title">Title</label>
-        <input id="title" v-model="note.title" />
-      </div>
+  <div class="flex-column align-items-center">
+    <div class="note-wrapper flex-column align-items-stretch mt-1">
+      <div class="flex-row justify-content-space-between align-items-start">
+        <div class="flex-column">
+          <label for="title">Title</label>
+          <input id="title" v-model="note.title" />
+        </div>
 
-      <button @click="save()">Save</button>
-    </div>
-    <div
-      id="markdown"
-      class="markdown-wrapper justify-content-space-between mt-2"
-    >
-      <button
-        title="Show markdown"
-        @click="setVisible(true, true)"
-        class="floating-show floating-show-markdown"
-        :class="{ 'hiding-show hiding-show-markdown': isMarkdownVisible }"
-      >
-        <i class="bi-eye-fill"></i>
-      </button>
-      <button
-        title="Show display"
-        @click="setVisible(true, false)"
-        class="floating-show floating-show-display"
-        :class="{ 'hiding-show hiding-show-display': isDisplayVisible }"
-      >
-        <i class="bi-eye-fill"></i>
-      </button>
-      <div
-        class="flex-column markdown-column"
-        :class="{
-          'minimized-column': !isMarkdownVisible,
-          'maximized-column': !isDisplayVisible,
-        }"
-      >
-        <div class="flex-row justify-content-space-between mr-1 ml-1">
-          <label for="markdown">Markdown</label>
-          <button
-            title="Hide markdown"
-            @click="setVisible(false, true)"
-            :disabled="!isDisplayVisible"
-            class="hide-button mb-1"
-          >
-            <i class="bi-eye-slash-fill"></i>
-          </button>
-          <button
-            title="Go to display"
-            @click="goTo('display')"
-            class="goto-button mb-1"
-          >
-            <i class="bi-eyeglasses"></i>
-          </button>
-        </div>
-        <textarea
-          id="markdown"
-          v-model="note.markdownText"
-          class="markdown-area"
-        ></textarea>
+        <button class="btn-primary" @click="save()" :disabled="!canSave">
+          Save
+        </button>
       </div>
       <div
-        class="markdown-column-spacer"
-        :class="{ 'minimized-column': !isDisplayVisible || !isMarkdownVisible }"
-      ></div>
-      <div
-        class="flex-column markdown-column"
-        :class="{
-          'minimized-column': !isDisplayVisible,
-          'maximized-column': !isMarkdownVisible,
-        }"
+        id="markdown"
+        class="markdown-wrapper justify-content-space-between mt-2"
       >
-        <div
-          id="display"
-          class="flex-row justify-content-space-between mr-1 ml-1"
+        <button
+          title="Show markdown"
+          @click="setVisible(true, true)"
+          class="floating-show floating-show-markdown"
+          :class="{ 'hiding-show hiding-show-markdown': isMarkdownVisible }"
         >
-          <label for="html">Display</label>
-          <button
-            title="Hide display"
-            @click="setVisible(false, false)"
-            :disabled="!isMarkdownVisible"
-            class="hide-button mb-1"
-          >
-            <i class="bi-eye-slash-fill"></i>
-          </button>
-          <button
-            title="Go to display"
-            @click="goTo('markdown')"
-            class="goto-button mb-1"
-          >
-            <i class="bi-pencil-fill"></i>
-          </button>
+          <i class="bi-eye-fill"></i>
+        </button>
+        <button
+          title="Show display"
+          @click="setVisible(true, false)"
+          class="floating-show floating-show-display"
+          :class="{ 'hiding-show hiding-show-display': isDisplayVisible }"
+        >
+          <i class="bi-eye-fill"></i>
+        </button>
+        <div
+          class="flex-column markdown-column"
+          :class="{
+            'minimized-column': !isMarkdownVisible,
+            'maximized-column': !isDisplayVisible,
+          }"
+        >
+          <div class="flex-row justify-content-space-between mr-1 ml-1">
+            <label for="markdown">Markdown</label>
+            <button
+              title="Hide markdown"
+              @click="setVisible(false, true)"
+              :disabled="!isDisplayVisible"
+              class="hide-button mb-1"
+            >
+              <i class="bi-eye-slash-fill"></i>
+            </button>
+            <button
+              title="Go to display"
+              @click="goTo('display')"
+              class="goto-button mb-1"
+            >
+              <i class="bi-eyeglasses"></i>
+            </button>
+          </div>
+          <textarea
+            id="markdown"
+            v-model="note.markdownText"
+            class="markdown-area"
+          ></textarea>
         </div>
-        <div id="html" v-html="markdownHtml" class="markdown-area"></div>
+        <div
+          class="markdown-column-spacer"
+          :class="{
+            'minimized-column': !isDisplayVisible || !isMarkdownVisible,
+          }"
+        ></div>
+        <div
+          class="flex-column markdown-column"
+          :class="{
+            'minimized-column': !isDisplayVisible,
+            'maximized-column': !isMarkdownVisible,
+          }"
+        >
+          <div
+            id="display"
+            class="flex-row justify-content-space-between mr-1 ml-1"
+          >
+            <label for="html">Display</label>
+            <button
+              title="Hide display"
+              @click="setVisible(false, false)"
+              :disabled="!isMarkdownVisible"
+              class="hide-button mb-1"
+            >
+              <i class="bi-eye-slash-fill"></i>
+            </button>
+            <button
+              title="Go to display"
+              @click="goTo('markdown')"
+              class="goto-button mb-1"
+            >
+              <i class="bi-pencil-fill"></i>
+            </button>
+          </div>
+          <div id="html" v-html="markdownHtml" class="markdown-area"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -140,10 +156,13 @@ function save() {
 
 <style scoped lang="scss">
 // breakpoints: 1024, 768, 640
+.note-wrapper {
+  width: 1000px;
+}
+
 .markdown-wrapper {
   display: flex;
   flex-direction: row;
-  width: 1000px;
 }
 
 .markdown-column {
@@ -195,11 +214,13 @@ function save() {
   &-markdown {
     left: -1.5rem;
     border-radius: 10px 0px 0px 10px;
+    padding: 2px 0 2px 5px;
   }
 
   &-display {
     right: -1.5rem;
     border-radius: 0px 10px 10px 0px;
+    padding: 2px 2px 2px 0;
   }
 }
 
@@ -221,9 +242,12 @@ function save() {
 }
 
 @media screen and (max-width: 1024px) {
+  .note-wrapper {
+    width: 100%;
+  }
+
   .markdown-wrapper {
     flex-direction: column;
-    width: 100%;
   }
 
   .markdown-column {

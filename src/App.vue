@@ -28,8 +28,9 @@ window.addEventListener('error', function (event: ErrorEvent) {
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
 @import './assets/base.css';
+@import './assets/button.scss';
 @import './assets/flex.css';
-@import './assets/inputs.css';
+@import './assets/input.scss';
 @import './assets/spacing.scss';
 
 main {

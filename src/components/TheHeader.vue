@@ -9,7 +9,7 @@ function navigateToNote() {
 <template>
   <header class="flex-row justify-content-space-between">
     <h1><router-link to="/">Jot-It</router-link></h1>
-    <button @click="navigateToNote()">
+    <button class="btn-primary" @click="navigateToNote()">
       <i class="bi-plus-lg"></i>
     </button>
     <div></div>

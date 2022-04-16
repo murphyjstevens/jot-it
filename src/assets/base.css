@@ -20,6 +20,10 @@
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 
+  --accent-color: rgb(0, 189, 126);
+  --accent-color-darker: rgb(1, 136, 91);
+  --accent-color-dim: rgb(148, 187, 172);
+
   --spacer: 1rem;
 }
 
@@ -35,7 +39,9 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
-  --section-gap: 160px;
+  --color-accent: var(--accent-color);
+  --color-accent-darker: var(--accent-color-darker);
+  --color-accent-dim: var(--accent-color-dim);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -75,20 +81,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-a, button {
+a {
   cursor: pointer;
-}
-
-input, textarea {
-  background-color: var(--vt-c-black-mute);
-  color: inherit;
-  border: 1px solid #444;
-  border-radius: 4px;
-  padding: 12px 20px;
-}
-
-input:disabled, textarea:disabled, button:disabled {
-  cursor: not-allowed;
 }
 
 .hidden {
