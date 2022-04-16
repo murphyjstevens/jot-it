@@ -25,6 +25,14 @@ export const useNoteStore = defineStore('note', {
       this.notes = noteList
     },
     saveNote(updatedNote: Note) {
+      if (!this.notes.some((n) => n.id === updatedNote.id)) {
+        const currentIds: Array<number> = this.notes.map((n) => n.id ?? 0)
+        const maxNoteId = currentIds.length
+          ? currentIds.reduce((a: number, b: number) => (a > b ? a : b))
+          : 0
+        updatedNote.id = maxNoteId + 1
+      }
+      updatedNote.updatedDate = new Date()
       this.notes = [
         ...this.notes.filter((n) => n.id !== updatedNote.id),
         updatedNote,

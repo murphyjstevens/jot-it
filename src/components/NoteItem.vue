@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, type Ref } from 'vue'
 import { useRoute } from 'vue-router'
 import MarkdownIt from 'markdown-it'
 
 import { router } from '@/router'
-import { useNoteStore } from '@/stores/note'
+import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
 
 const route = useRoute()
@@ -13,13 +13,14 @@ const markdownIt = new MarkdownIt()
 
 const noteId: number = +route.params.id
 
-const note: Note = noteStore.notes.find((n) => n.id === noteId) ?? ({} as Note)
+const note: Ref<Note> = ref(
+  noteStore.notes.find((n) => n.id === noteId) ?? ({ markdownText: '' } as Note)
+)
 
-const markdown = ref(note.markdownText ?? '')
 const isMarkdownVisible = ref(true)
 const isDisplayVisible = ref(true)
 
-const markdownHtml = computed(() => markdownIt.render(markdown.value))
+const markdownHtml = computed(() => markdownIt.render(note.value.markdownText))
 
 function setVisible(isVisible: boolean, isMarkdown: boolean): void {
   if (isMarkdown) {
@@ -32,13 +33,21 @@ function setVisible(isVisible: boolean, isMarkdown: boolean): void {
 function goTo(tag: string) {
   router.push(`#${tag}`)
 }
+
+function save() {
+  noteStore.saveNote(note.value)
+}
 </script>
 
 <template>
   <div class="flex-column align-items-center mt-1">
-    <div class="flex-column">
-      <label for="title">Title</label>
-      <input id="title" />
+    <div class="flex-row">
+      <div class="flex-column">
+        <label for="title">Title</label>
+        <input id="title" v-model="note.title" />
+      </div>
+
+      <button @click="save()">Save</button>
     </div>
     <div
       id="markdown"
@@ -87,7 +96,7 @@ function goTo(tag: string) {
         </div>
         <textarea
           id="markdown"
-          v-model="markdown"
+          v-model="note.markdownText"
           class="markdown-area"
         ></textarea>
       </div>

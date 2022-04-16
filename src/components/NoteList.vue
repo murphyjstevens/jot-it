@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, type Ref } from 'vue'
 
-import { useNoteStore } from '../stores/note'
-import type { Note } from '../models/note.model'
+import { useNoteStore } from '@/stores/note.store'
+import type { Note } from '@/models/note.model'
 
 const noteStore = useNoteStore()
 
@@ -18,9 +18,9 @@ const notes: Ref<Array<Note>> = ref(noteStore.notes)
       v-bind:key="note.id"
       class="card flex-column mt-4 ml-4 mr-4"
     >
-      <router-link class="card-title" :to="`/notes/${note.id}`"
-        >Note link</router-link
-      >
+      <router-link class="card-title" :to="`/notes/${note.id}`">{{
+        note.title
+      }}</router-link>
       <div class="grid">
         <span>Creator:</span>
         <span class="grid-result">{{ note.creatorId }}</span>

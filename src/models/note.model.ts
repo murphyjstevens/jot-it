@@ -1,7 +1,7 @@
 export interface Note {
-  id: number
+  id: number | undefined
   title: string
   markdownText: string
   creatorId: number
-  updatedDate: Date
+  updatedDate: Date | undefined
 }
