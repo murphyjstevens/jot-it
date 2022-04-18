@@ -6,7 +6,6 @@ import { useToastStore } from './stores/toast.store'
 const toastStore = useToastStore()
 
 window.addEventListener('error', function (event: ErrorEvent) {
-  console.log(event)
   toastStore.addError(event.error)
   return false
 })

@@ -16,7 +16,6 @@ describe('NoteStore', () => {
       id: 1,
       title: 'Test',
       markdownText: '## test',
-      creatorId: 1,
       updatedDate: new Date(),
     } as Note
 
@@ -24,7 +23,6 @@ describe('NoteStore', () => {
       id: 2,
       title: 'Test2',
       markdownText: '## test2',
-      creatorId: 1,
       updatedDate: new Date('2020-01-01'),
     } as Note
 

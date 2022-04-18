@@ -52,15 +52,21 @@ function save() {
 <template>
   <div class="flex-column align-items-center">
     <div class="note-wrapper flex-column align-items-stretch mt-1">
-      <div class="flex-row justify-content-space-between align-items-start">
-        <div class="flex-column">
-          <label for="title">Title</label>
-          <input id="title" v-model="note.title" />
-        </div>
-
+      <div class="flex-row justify-content-end">
+        <span class="mr-2" v-if="note?.updatedDate">
+          Last Updated: <time>{{ note.updatedDate.toLocaleString() }}</time>
+        </span>
         <button class="btn-primary" @click="save()" :disabled="!canSave">
           Save
         </button>
+      </div>
+      <div class="note-input-row">
+        <div class="note-input-wrapper flex-column">
+          <label for="title">Title</label>
+          <input id="title" v-model="note.title" />
+        </div>
+        <div class="markdown-column-spacer"></div>
+        <div class="note-input-wrapper flex-column"></div>
       </div>
       <div
         id="markdown"
@@ -160,6 +166,15 @@ function save() {
   width: 1000px;
 }
 
+.note-input-row {
+  display: flex;
+  flex-direction: row;
+
+  .note-input-wrapper {
+    flex: 1;
+  }
+}
+
 .markdown-wrapper {
   display: flex;
   flex-direction: row;
@@ -244,6 +259,10 @@ function save() {
 @media screen and (max-width: 1024px) {
   .note-wrapper {
     width: 100%;
+  }
+
+  .note-input-row {
+    flex-direction: column;
   }
 
   .markdown-wrapper {
