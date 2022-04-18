@@ -54,7 +54,9 @@ function save() {
     <div class="note-wrapper flex-column align-items-stretch mt-1">
       <div class="flex-row justify-content-end">
         <span class="mr-2" v-if="note?.updatedDate">
-          Last Updated: <time>{{ note.updatedDate.toLocaleString() }}</time>
+          <time title="Last Updated">{{
+            note.updatedDate.toLocaleString()
+          }}</time>
         </span>
         <button class="btn-primary" @click="save()" :disabled="!canSave">
           Save
