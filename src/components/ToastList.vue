@@ -14,7 +14,10 @@ const toasts: Ref<Array<Toast>> = computed(() => toastStore.toasts)
   <ul class="toast-wrapper flex-column">
     <li
       class="toast"
-      :class="{ error: toast.type === ToastType.Error }"
+      :class="{
+        error: toast.type === ToastType.Error,
+        success: toast.type === ToastType.Success,
+      }"
       v-for="toast in toasts"
       v-bind:key="toast.id"
     >
@@ -26,9 +29,10 @@ const toasts: Ref<Array<Toast>> = computed(() => toastStore.toasts)
 
 <style scoped lang="scss">
 .toast-wrapper {
-  position: absolute;
+  position: fixed;
   right: 2rem;
   top: 2rem;
+  z-index: 99;
 
   color: var(--color-text);
   list-style-type: none;
@@ -48,6 +52,10 @@ const toasts: Ref<Array<Toast>> = computed(() => toastStore.toasts)
 
   .error {
     background-color: rgb(226, 72, 72);
+  }
+
+  .success {
+    background-color: rgb(47, 131, 61);
   }
 }
 </style>
