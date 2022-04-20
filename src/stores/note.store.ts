@@ -5,9 +5,10 @@ import type { Note } from '../models/note.model'
 export const useNoteStore = defineStore('note', {
   state: () => ({
     notes: new Array<Note>(),
+    currentNote: {} as Note,
   }),
   actions: {
-    load() {
+    load(): void {
       const json = localStorage.getItem('notes')
       if (!json) {
         this.notes = []
@@ -24,7 +25,10 @@ export const useNoteStore = defineStore('note', {
 
       this.notes = noteList
     },
-    saveNote(updatedNote: Note) {
+    open(note: Note | null): void {
+      this.currentNote = note ?? ({} as Note)
+    },
+    saveNote(updatedNote: Note): void {
       if (!this.notes.some((n) => n.id === updatedNote.id)) {
         const currentIds: Array<number> = this.notes.map((n) => n.id ?? 0)
         const maxNoteId = currentIds.length

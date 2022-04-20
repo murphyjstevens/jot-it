@@ -1,23 +1,16 @@
 <script setup lang="ts">
 import { computed, ref, type Ref } from 'vue'
-import { useRoute } from 'vue-router'
 import MarkdownIt from 'markdown-it'
 
-import { router } from '@/router'
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
 
-const route = useRoute()
 const noteStore = useNoteStore()
 const markdownIt = new MarkdownIt()
 
-const noteId: number = +route.params.id
-
 noteStore.load()
 
-const note: Ref<Note> = ref(
-  noteStore.notes.find((n) => n.id === noteId) ?? ({ markdownText: '' } as Note)
-)
+const note: Ref<Note> = ref({markdownText: ''} as Note)
 
 const isMarkdownVisible = ref(true)
 const isDisplayVisible = ref(true)
@@ -30,17 +23,13 @@ const canSave: Ref<boolean> = computed(
   () => !!note?.value?.markdownText && !!note.value.title
 )
 
-function setVisible(isVisible: boolean, isMarkdown: boolean): void {
-  if (isMarkdown) {
-    isMarkdownVisible.value = isVisible
-  } else {
-    isDisplayVisible.value = isVisible
-  }
-}
-
-function goTo(tag: string) {
-  router.push(`#${tag}`)
-}
+// function setVisible(isVisible: boolean, isMarkdown: boolean): void {
+//   if (isMarkdown) {
+//     isMarkdownVisible.value = isVisible
+//   } else {
+//     isDisplayVisible.value = isVisible
+//   }
+// }
 
 function save() {
   if (canSave.value) {
@@ -133,17 +122,16 @@ function save() {
             class="flex-row justify-content-space-between mr-1 ml-1"
           >
             <label for="html">Display</label>
-            <button
+            <!-- <button
               title="Hide display"
               @click="setVisible(false, false)"
               :disabled="!isMarkdownVisible"
               class="hide-button mb-1"
             >
               <i class="bi-eye-slash-fill"></i>
-            </button>
+            </button> -->
             <button
               title="Go to display"
-              @click="goTo('markdown')"
               class="goto-button mb-1"
             >
               <i class="bi-pencil-fill"></i>
@@ -159,7 +147,7 @@ function save() {
 <style scoped lang="scss">
 // breakpoints: 1024, 768, 640
 .note-wrapper {
-  width: 1000px;
+  width: 100%;
 }
 
 .note-input-row {
@@ -177,11 +165,10 @@ function save() {
 
 .markdown-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .markdown-column {
-  width: 50%;
   transition: width 0.5s ease-out, opacity 0.5s ease-in;
   z-index: 2;
 }
