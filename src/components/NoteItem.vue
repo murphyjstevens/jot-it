@@ -63,33 +63,27 @@ function save() {
         </button>
       </div>
       <div class="note-input-row">
-        <div class="note-input-wrapper flex-column">
-          <label for="title">Title</label>
-          <input id="title" v-model="note.title" />
-        </div>
-        <div class="markdown-column-spacer"></div>
-        <div class="note-input-wrapper flex-column"></div>
+        <h1 class="note-input-wrapper flex-column">
+          <input id="title" v-model="note.title" placeholder="Title" />
+        </h1>
       </div>
-      <div
-        id="markdown"
-        class="markdown-wrapper justify-content-space-between mt-2"
-      >
-        <button
+      <div id="markdown" class="markdown-wrapper justify-content-space-between">
+        <!-- <button
           title="Show markdown"
           @click="setVisible(true, true)"
           class="floating-show floating-show-markdown"
           :class="{ 'hiding-show hiding-show-markdown': isMarkdownVisible }"
         >
           <i class="bi-eye-fill"></i>
-        </button>
-        <button
+        </button> -->
+        <!-- <button
           title="Show display"
           @click="setVisible(true, false)"
           class="floating-show floating-show-display"
           :class="{ 'hiding-show hiding-show-display': isDisplayVisible }"
         >
           <i class="bi-eye-fill"></i>
-        </button>
+        </button> -->
         <div
           class="flex-column markdown-column"
           :class="{
@@ -97,7 +91,7 @@ function save() {
             'maximized-column': !isDisplayVisible,
           }"
         >
-          <div class="flex-row justify-content-space-between mr-1 ml-1">
+          <!-- <div class="flex-row justify-content-space-between mr-1 ml-1">
             <label for="markdown">Markdown</label>
             <button
               title="Hide markdown"
@@ -114,7 +108,7 @@ function save() {
             >
               <i class="bi-eyeglasses"></i>
             </button>
-          </div>
+          </div> -->
           <textarea
             id="markdown"
             v-model="note.markdownText"
@@ -174,6 +168,10 @@ function save() {
 
   .note-input-wrapper {
     flex: 1;
+
+    & > input {
+      font-size: 1.5rem;
+    }
   }
 }
 
@@ -216,8 +214,6 @@ function save() {
   height: 500px;
   background-color: var(--vt-c-black-mute);
   color: inherit;
-  border: 1px solid #444;
-  border-radius: 4px;
   padding: 12px 20px;
 }
 
