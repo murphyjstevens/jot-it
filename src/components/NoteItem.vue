@@ -8,9 +8,7 @@ import type { Note } from '@/models/note.model'
 const noteStore = useNoteStore()
 const markdownIt = new MarkdownIt()
 
-noteStore.load()
-
-const note: Ref<Note> = ref({markdownText: ''} as Note)
+const note: Ref<Note> = ref({ ...noteStore.currentNote } as Note)
 
 const isMarkdownVisible = ref(true)
 const isDisplayVisible = ref(true)
@@ -23,13 +21,9 @@ const canSave: Ref<boolean> = computed(
   () => !!note?.value?.markdownText && !!note.value.title
 )
 
-// function setVisible(isVisible: boolean, isMarkdown: boolean): void {
-//   if (isMarkdown) {
-//     isMarkdownVisible.value = isVisible
-//   } else {
-//     isDisplayVisible.value = isVisible
-//   }
-// }
+noteStore.$subscribe((mutation, state) => {
+  note.value = { ...state.currentNote } as Note
+})
 
 function save() {
   if (canSave.value) {
@@ -57,22 +51,6 @@ function save() {
         </h1>
       </div>
       <div id="markdown" class="markdown-wrapper justify-content-space-between">
-        <!-- <button
-          title="Show markdown"
-          @click="setVisible(true, true)"
-          class="floating-show floating-show-markdown"
-          :class="{ 'hiding-show hiding-show-markdown': isMarkdownVisible }"
-        >
-          <i class="bi-eye-fill"></i>
-        </button> -->
-        <!-- <button
-          title="Show display"
-          @click="setVisible(true, false)"
-          class="floating-show floating-show-display"
-          :class="{ 'hiding-show hiding-show-display': isDisplayVisible }"
-        >
-          <i class="bi-eye-fill"></i>
-        </button> -->
         <div
           class="flex-column markdown-column"
           :class="{
@@ -80,24 +58,6 @@ function save() {
             'maximized-column': !isDisplayVisible,
           }"
         >
-          <!-- <div class="flex-row justify-content-space-between mr-1 ml-1">
-            <label for="markdown">Markdown</label>
-            <button
-              title="Hide markdown"
-              @click="setVisible(false, true)"
-              :disabled="!isDisplayVisible"
-              class="hide-button mb-1"
-            >
-              <i class="bi-eye-slash-fill"></i>
-            </button>
-            <button
-              title="Go to display"
-              @click="goTo('display')"
-              class="goto-button mb-1"
-            >
-              <i class="bi-eyeglasses"></i>
-            </button>
-          </div> -->
           <textarea
             id="markdown"
             v-model="note.markdownText"
@@ -122,18 +82,7 @@ function save() {
             class="flex-row justify-content-space-between mr-1 ml-1"
           >
             <label for="html">Display</label>
-            <!-- <button
-              title="Hide display"
-              @click="setVisible(false, false)"
-              :disabled="!isMarkdownVisible"
-              class="hide-button mb-1"
-            >
-              <i class="bi-eye-slash-fill"></i>
-            </button> -->
-            <button
-              title="Go to display"
-              class="goto-button mb-1"
-            >
+            <button title="Go to display" class="goto-button mb-1">
               <i class="bi-pencil-fill"></i>
             </button>
           </div>

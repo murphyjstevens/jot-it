@@ -5,7 +5,7 @@ import type { Note } from '../models/note.model'
 export const useNoteStore = defineStore('note', {
   state: () => ({
     notes: new Array<Note>(),
-    currentNote: {} as Note,
+    currentNote: null as Note | null,
   }),
   actions: {
     load(): void {
@@ -24,9 +24,13 @@ export const useNoteStore = defineStore('note', {
       })
 
       this.notes = noteList
+      if (!this.currentNote && noteList.length) {
+        const topNote: Note = noteList[0]
+        this.open(topNote)
+      }
     },
     open(note: Note | null): void {
-      this.currentNote = note ?? ({} as Note)
+      this.currentNote = note
     },
     saveNote(updatedNote: Note): void {
       if (!this.notes.some((n) => n.id === updatedNote.id)) {
