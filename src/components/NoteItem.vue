@@ -8,7 +8,8 @@ import type { Note } from '@/models/note.model'
 const noteStore = useNoteStore()
 const markdownIt = new MarkdownIt()
 
-const note: Ref<Note> = ref({ ...noteStore.currentNote } as Note)
+const note: Ref<Note> = ref({} as Note)
+loadNote()
 
 const isMarkdownVisible = ref(true)
 const isDisplayVisible = ref(true)
@@ -21,11 +22,15 @@ const canSave: Ref<boolean> = computed(
   () => !!note?.value?.markdownText && !!note.value.title
 )
 
-noteStore.$subscribe((mutation, state) => {
-  note.value = state.currentNote
-    ? ({ ...state.currentNote } as Note)
-    : ({ markdownText: '' } as Note)
+noteStore.$subscribe(() => {
+  loadNote()
 })
+
+function loadNote() {
+  note.value = noteStore.currentNote
+    ? ({ ...noteStore.currentNote } as Note)
+    : ({ markdownText: '' } as Note)
+}
 
 function save() {
   if (canSave.value) {
