@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref, type Ref } from 'vue'
-
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
 
@@ -8,7 +6,7 @@ const noteStore = useNoteStore()
 
 noteStore.load()
 
-const notes: Ref<Array<Note>> = ref(noteStore.notes)
+const notes: Array<Note> = noteStore.notes
 
 function openNote(note: Note | null) {
   noteStore.open(note)

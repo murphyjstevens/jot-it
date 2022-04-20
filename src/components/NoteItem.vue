@@ -22,7 +22,9 @@ const canSave: Ref<boolean> = computed(
 )
 
 noteStore.$subscribe((mutation, state) => {
-  note.value = { ...state.currentNote } as Note
+  note.value = state.currentNote
+    ? ({ ...state.currentNote } as Note)
+    : ({ markdownText: '' } as Note)
 })
 
 function save() {
