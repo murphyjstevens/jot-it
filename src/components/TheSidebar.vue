@@ -25,6 +25,7 @@ function openNote(note: Note | null) {
         @click="openNote(note)"
         class="flex-row"
       >
+        <i class="bi-journal-text mr-2"></i>
         <span>{{ note.title }}</span>
       </button>
     </div>
@@ -53,13 +54,13 @@ aside {
 
     button {
       background-color: var(--vt-c-black-mute);
-      border-bottom: 1px solid var(--color-background-soft);
+      border-bottom: 1px solid var(--color-border);
       color: var(--color-text);
 
       width: 100%;
 
       font-size: 1.5rem;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem;
 
       &:hover {
         background-color: var(--color-background);
