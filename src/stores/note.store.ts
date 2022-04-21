@@ -45,6 +45,9 @@ export const useNoteStore = defineStore('note', {
         ...this.notes.filter((n) => n.id !== updatedNote.id),
         updatedNote,
       ]
+      if (this.currentNote === null || this.currentNote.id === updatedNote.id) {
+        this.currentNote = updatedNote
+      }
       localStorage.setItem('notes', JSON.stringify(this.notes))
     },
   },

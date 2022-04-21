@@ -6,8 +6,6 @@ const noteStore = useNoteStore()
 
 noteStore.load()
 
-const notes: Array<Note> = noteStore.notes
-
 function openNote(note: Note | null) {
   noteStore.open(note)
 }
@@ -22,7 +20,7 @@ function openNote(note: Note | null) {
     </button>
     <div class="note-list-wrapper">
       <button
-        v-for="note in notes"
+        v-for="note in noteStore.notes"
         v-bind:key="note.id"
         @click="openNote(note)"
         class="flex-row"
