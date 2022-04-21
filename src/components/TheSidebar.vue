@@ -23,6 +23,7 @@ function openNote(note: Note | null) {
         v-for="note in noteStore.notes"
         v-bind:key="note.id"
         @click="openNote(note)"
+        :title="note.title"
         class="flex-row"
       >
         <i class="bi-journal-text mr-2"></i>
