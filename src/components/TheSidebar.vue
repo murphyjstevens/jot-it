@@ -57,6 +57,8 @@ aside {
       border-bottom: 1px solid var(--color-border);
       color: var(--color-text);
 
+      text-overflow: ellipsis;
+
       width: 100%;
 
       font-size: 1.5rem;
@@ -69,6 +71,11 @@ aside {
       &:active,
       &:focus {
         border: 1px solid var(--color-text);
+      }
+
+      & > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }

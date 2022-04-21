@@ -15,7 +15,7 @@ window.addEventListener('error', function (event: ErrorEvent) {
 <template>
   <div class="app-wrapper flex-row">
     <TheSidebar />
-    <main>
+    <main class="flex-1">
       <NoteItem />
     </main>
 

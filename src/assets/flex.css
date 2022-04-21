@@ -8,8 +8,8 @@
     flex-direction: column;
 }
 
-.flex-grow {
-    flex-grow: 1;
+.flex-1 {
+    flex: 1;
 }
 
 .align-center {
