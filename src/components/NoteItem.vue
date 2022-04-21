@@ -15,8 +15,10 @@ const markdownHtml: Ref<string> = computed(() =>
   markdownIt.render(note.value.markdownText)
 )
 
-const canSave: Ref<boolean> = computed(
-  () => !!note?.value?.markdownText && !!note.value.title
+const canSave: Ref<boolean> = computed(() => !!note.value.title)
+
+const canNotSaveReason: Ref<string> = computed(() =>
+  !note.value.title ? 'The title is required' : ''
 )
 
 noteStore.$subscribe(() => {
@@ -44,7 +46,12 @@ function save() {
           note.updatedDate.toLocaleString()
         }}</time>
       </span>
-      <button class="btn-primary" @click="save()" :disabled="!canSave">
+      <button
+        class="btn-primary"
+        @click="save()"
+        :disabled="!canSave"
+        :title="canNotSaveReason"
+      >
         Save
       </button>
     </div>
