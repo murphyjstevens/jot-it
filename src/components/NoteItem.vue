@@ -11,9 +11,6 @@ const markdownIt = new MarkdownIt()
 const note: Ref<Note> = ref({} as Note)
 loadNote()
 
-const isMarkdownVisible = ref(true)
-const isDisplayVisible = ref(true)
-
 const markdownHtml: Ref<string> = computed(() =>
   markdownIt.render(note.value.markdownText)
 )
@@ -40,61 +37,32 @@ function save() {
 </script>
 
 <template>
-  <div class="flex-column align-items-center">
-    <div class="note-wrapper flex-column align-items-stretch mt-1">
-      <div class="flex-row justify-content-end">
-        <span class="mr-2" v-if="note?.updatedDate">
-          <time title="Last Updated">{{
-            note.updatedDate.toLocaleString()
-          }}</time>
-        </span>
-        <button class="btn-primary" @click="save()" :disabled="!canSave">
-          Save
-        </button>
+  <div class="note-wrapper flex-column">
+    <div class="flex-row justify-content-end mt-2">
+      <span class="mr-2" v-if="note?.updatedDate">
+        <time title="Last Updated">{{
+          note.updatedDate.toLocaleString()
+        }}</time>
+      </span>
+      <button class="btn-primary" @click="save()" :disabled="!canSave">
+        Save
+      </button>
+    </div>
+    <div class="note-input-row mt-2">
+      <h2 class="note-input-wrapper flex-column">
+        <input id="title" v-model="note.title" placeholder="Title" />
+      </h2>
+    </div>
+    <div id="markdown" class="markdown-wrapper justify-content-space-between">
+      <div class="flex-column markdown-column mb-4">
+        <textarea
+          id="markdown"
+          v-model="note.markdownText"
+          class="markdown-area"
+        ></textarea>
       </div>
-      <div class="note-input-row">
-        <h1 class="note-input-wrapper flex-column">
-          <input id="title" v-model="note.title" placeholder="Title" />
-        </h1>
-      </div>
-      <div id="markdown" class="markdown-wrapper justify-content-space-between">
-        <div
-          class="flex-column markdown-column"
-          :class="{
-            'minimized-column': !isMarkdownVisible,
-            'maximized-column': !isDisplayVisible,
-          }"
-        >
-          <textarea
-            id="markdown"
-            v-model="note.markdownText"
-            class="markdown-area"
-          ></textarea>
-        </div>
-        <div
-          class="markdown-column-spacer"
-          :class="{
-            'minimized-column': !isDisplayVisible || !isMarkdownVisible,
-          }"
-        ></div>
-        <div
-          class="flex-column markdown-column"
-          :class="{
-            'minimized-column': !isDisplayVisible,
-            'maximized-column': !isMarkdownVisible,
-          }"
-        >
-          <div
-            id="display"
-            class="flex-row justify-content-space-between mr-1 ml-1"
-          >
-            <label for="html">Display</label>
-            <button title="Go to display" class="goto-button mb-1">
-              <i class="bi-pencil-fill"></i>
-            </button>
-          </div>
-          <div id="html" v-html="markdownHtml" class="markdown-area"></div>
-        </div>
+      <div class="flex-column markdown-column mb-4">
+        <div id="html" v-html="markdownHtml" class="markdown-area"></div>
       </div>
     </div>
   </div>
@@ -103,6 +71,7 @@ function save() {
 <style scoped lang="scss">
 // breakpoints: 1024, 768, 640
 .note-wrapper {
+  height: 100%;
   width: 100%;
 }
 
@@ -111,7 +80,7 @@ function save() {
   flex-direction: row;
 
   .note-input-wrapper {
-    flex: 1;
+    flex-grow: 1;
 
     & > input {
       font-size: 1.5rem;
@@ -122,79 +91,20 @@ function save() {
 .markdown-wrapper {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .markdown-column {
+  flex: 1;
   transition: width 0.5s ease-out, opacity 0.5s ease-in;
-  z-index: 2;
-}
-
-.markdown-column-spacer {
-  width: 1rem;
-  transition: width 0.5s ease-out;
-  z-index: 2;
-}
-
-.minimized-column {
-  overflow: hidden;
-  width: 0px;
-  opacity: 0;
-  transition: width 0.5s ease-out, opacity 0.5s ease-in;
-
-  textarea {
-    text-overflow: clip;
-    overflow: hidden;
-    white-space: pre;
-  }
-}
-
-.maximized-column {
-  width: 100%;
-  transition: width 0.5s ease-out;
+  border-top: 1px solid var(--color-border);
 }
 
 .markdown-area {
-  height: 500px;
+  flex: 1;
   background-color: var(--vt-c-black-mute);
   color: inherit;
   padding: 12px 20px;
-}
-
-.floating-show {
-  position: absolute;
-  width: 1.5rem;
-  top: 2rem;
-  transition: transform 0.5s ease-out, opacity 0.5s ease-in 0.3s;
-  z-index: 1;
-
-  &-markdown {
-    left: -1.5rem;
-    border-radius: 10px 0px 0px 10px;
-    padding: 2px 0 2px 5px;
-  }
-
-  &-display {
-    right: -1.5rem;
-    border-radius: 0px 10px 10px 0px;
-    padding: 2px 2px 2px 0;
-  }
-}
-
-.hiding-show {
-  opacity: 0;
-  transition: transform 0.5s ease-out, opacity 0.2s linear;
-
-  &-markdown {
-    transform: translateX(3rem);
-  }
-
-  &-display {
-    transform: translateX(-3rem);
-  }
-}
-
-.goto-button {
-  display: none;
 }
 
 @media screen and (max-width: 1024px) {
@@ -213,33 +123,6 @@ function save() {
   .markdown-column {
     width: 100%;
     margin-bottom: 1rem;
-  }
-  .markdown-column-spacer {
-    display: none;
-  }
-
-  .floating-show {
-    display: none;
-  }
-
-  .minimized-column {
-    overflow: inherit;
-    width: inherit;
-    opacity: inherit;
-
-    textarea {
-      text-overflow: inherit;
-      overflow: inherit;
-      white-space: inherit;
-    }
-  }
-
-  .hide-button {
-    display: none;
-  }
-
-  .goto-button {
-    display: inherit;
   }
 }
 </style>
