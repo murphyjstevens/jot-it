@@ -16,12 +16,15 @@ export const useNoteStore = defineStore('note', {
       }
 
       let noteList = JSON.parse(json) as Array<Note>
-      noteList = noteList.map((note) => {
-        return {
-          ...note,
-          updatedDate: note.updatedDate ? new Date(note.updatedDate) : null,
-        } as Note
-      })
+      noteList = noteList
+        .map(
+          (note) =>
+            ({
+              ...note,
+              updatedDate: note.updatedDate ? new Date(note.updatedDate) : null,
+            } as Note)
+        )
+        .sort((a, b) => a?.title?.localeCompare(b.title) ?? -1)
 
       this.notes = noteList
       if (!this.currentNote && noteList.length) {
@@ -44,7 +47,8 @@ export const useNoteStore = defineStore('note', {
       this.notes = [
         ...this.notes.filter((n) => n.id !== updatedNote.id),
         updatedNote,
-      ]
+      ].sort((a, b) => a?.title?.localeCompare(b.title) ?? -1)
+
       if (this.currentNote === null || this.currentNote.id === updatedNote.id) {
         this.currentNote = updatedNote
       }
