@@ -5,6 +5,8 @@ import MarkdownIt from 'markdown-it'
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
 
+import iconList from '../assets/bootstrap-icon-list.json'
+
 const noteStore = useNoteStore()
 const markdownIt = new MarkdownIt()
 
@@ -56,6 +58,10 @@ function save() {
       </button>
     </div>
     <div class="note-input-row mt-2">
+      <select v-model="note.icon">
+        <option v-for="icon in iconList" v-bind:key="icon">{{ icon }}</option>
+      </select>
+      <i class="note-icon" :class="[`bi-${note.icon}`]"></i>
       <h2 class="note-input-wrapper flex-column">
         <input id="title" v-model="note.title" placeholder="Title" />
       </h2>
@@ -92,6 +98,14 @@ function save() {
     & > input {
       font-size: 1.5rem;
     }
+  }
+
+  .note-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    font-size: 1.5rem;
   }
 }
 

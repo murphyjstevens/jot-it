@@ -1,4 +1,4 @@
-input, textarea {
+input, textarea, select {
     background-color: var(--vt-c-black-mute);
     color: inherit;
     border: none;
@@ -7,5 +7,11 @@ input, textarea {
 
     &:disabled {
         cursor: not-allowed;
+    }
+}
+
+select {
+    &:focus {
+        box-shadow: 0 0 0 .15rem var(--accent-color-dim);
     }
 }

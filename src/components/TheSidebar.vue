@@ -26,7 +26,7 @@ function openNote(note: Note | null) {
         :title="note.title"
         class="flex-row"
       >
-        <i class="bi-journal-text mr-2"></i>
+        <i class="mr-2" :class="[`bi-${note.icon ?? 'journal-text'}`]"></i>
         <span>{{ note.title }}</span>
       </button>
     </div>
