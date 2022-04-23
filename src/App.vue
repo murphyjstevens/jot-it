@@ -26,6 +26,7 @@ window.addEventListener('error', function (event: ErrorEvent) {
 <style lang="scss">
 @import 'normalize.css/normalize.css';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+@import 'highlight.js/scss/dark.scss';
 
 @import './assets/base.css';
 @import './assets/button.scss';

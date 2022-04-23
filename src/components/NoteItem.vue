@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, type Ref } from 'vue'
 import MarkdownIt from 'markdown-it'
+import highlightJs from 'highlight.js'
 
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
@@ -8,7 +9,25 @@ import type { Note } from '@/models/note.model'
 import iconList from '../assets/bootstrap-icon-list.json'
 
 const noteStore = useNoteStore()
-const markdownIt = new MarkdownIt()
+const markdownIt: MarkdownIt = new MarkdownIt({
+  breaks: true,
+  highlight: function (str, lang) {
+    if (lang && highlightJs.getLanguage(lang)) {
+      try {
+        return `<pre class="hljs"><code>${
+          highlightJs.highlight(str, { language: lang, ignoreIllegals: true })
+            .value
+        }</code></pre>`
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    return `<pre class="hljs"><code>${markdownIt.utils.escapeHtml(
+      str
+    )}</code></pre>`
+  },
+})
 
 const note: Ref<Note> = ref({} as Note)
 loadNote()
@@ -75,7 +94,11 @@ function save() {
         ></textarea>
       </div>
       <div class="flex-column markdown-column mb-4">
-        <div id="html" v-html="markdownHtml" class="markdown-area"></div>
+        <div
+          id="html"
+          v-html="markdownHtml"
+          class="markdown-area markdown-display"
+        ></div>
       </div>
     </div>
   </div>
