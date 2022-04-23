@@ -33,6 +33,7 @@ window.addEventListener('error', function (event: ErrorEvent) {
 @import './assets/flex.css';
 @import './assets/input.scss';
 @import './assets/spacing.scss';
+@import './assets/markdown.scss';
 
 .app-wrapper {
   width: 100%;

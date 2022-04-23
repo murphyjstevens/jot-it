@@ -11,21 +11,17 @@ import iconList from '../assets/bootstrap-icon-list.json'
 const noteStore = useNoteStore()
 const markdownIt: MarkdownIt = new MarkdownIt({
   breaks: true,
+  linkify: true,
   highlight: function (str, lang) {
     if (lang && highlightJs.getLanguage(lang)) {
       try {
-        return `<pre class="hljs"><code>${
-          highlightJs.highlight(str, { language: lang, ignoreIllegals: true })
-            .value
-        }</code></pre>`
+        return highlightJs.highlight(str, { language: lang }).value
       } catch (error) {
         console.error(error)
       }
     }
 
-    return `<pre class="hljs"><code>${markdownIt.utils.escapeHtml(
-      str
-    )}</code></pre>`
+    return ''
   },
 })
 
@@ -149,6 +145,7 @@ function save() {
   background-color: var(--vt-c-black-mute);
   color: inherit;
   padding: 12px 20px;
+  overflow: auto;
 }
 
 @media screen and (max-width: 1024px) {
