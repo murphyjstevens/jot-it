@@ -1,7 +1,7 @@
 input, textarea, select {
     background-color: var(--vt-c-black-mute);
     color: inherit;
-    border: none;
+    border: 1px solid var(--color-border);
     padding: 12px 20px;
     resize: none;
 

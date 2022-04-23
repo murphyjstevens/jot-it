@@ -45,7 +45,7 @@ noteStore.$subscribe(() => {
 function loadNote() {
   note.value = noteStore.currentNote
     ? ({ ...noteStore.currentNote } as Note)
-    : ({ markdownText: '' } as Note)
+    : ({ markdownText: '', icon: 'journal' } as Note)
 }
 
 function save() {
@@ -76,8 +76,8 @@ function save() {
       <select v-model="note.icon">
         <option v-for="icon in iconList" v-bind:key="icon">{{ icon }}</option>
       </select>
-      <i class="note-icon" :class="[`bi-${note.icon}`]"></i>
       <h2 class="note-input-wrapper flex-column">
+        <i class="note-icon" :class="[`bi-${note.icon}`]"></i>
         <input id="title" v-model="note.title" placeholder="Title" />
       </h2>
     </div>
@@ -116,15 +116,20 @@ function save() {
 
     & > input {
       font-size: 1.5rem;
+      padding-left: 2.5rem;
     }
   }
 
   .note-icon {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
     width: 2rem;
+    margin-left: 0.25rem;
     font-size: 1.5rem;
+    z-index: 2;
   }
 }
 
@@ -137,12 +142,12 @@ function save() {
 .markdown-column {
   height: 50%;
   transition: width 0.5s ease-out, opacity 0.5s ease-in;
-  border-top: 1px solid var(--color-border);
 }
 
 .markdown-area {
   flex: 1;
   background-color: var(--vt-c-black-mute);
+  border: 1px solid var(--color-border);
   color: inherit;
   padding: 12px 20px;
   overflow: auto;
