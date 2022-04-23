@@ -135,7 +135,7 @@ function save() {
 }
 
 .markdown-column {
-  flex: 1;
+  height: 50%;
   transition: width 0.5s ease-out, opacity 0.5s ease-in;
   border-top: 1px solid var(--color-border);
 }
