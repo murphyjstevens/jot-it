@@ -5,6 +5,7 @@ import {
   type RouteRecordRaw,
 } from 'vue-router'
 
+import NoteEdit from './components/NoteEdit.vue'
 import NoteItem from './components/NoteItem.vue'
 import TheHome from './components/TheHome.vue'
 
@@ -15,7 +16,7 @@ const routes = [
     component: TheHome,
     children: [
       { path: '', component: NoteItem },
-      { path: 'edit', component: NoteItem },
+      { path: 'edit', component: NoteEdit },
     ],
   },
 ] as Array<RouteRecordRaw>
