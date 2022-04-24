@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
 import { useSidebarStore } from '@/stores/sidebar.store'
 
+const route = useRoute()
 const router = useRouter()
 
 const noteStore = useNoteStore()
@@ -12,14 +14,29 @@ const sidebarStore = useSidebarStore()
 
 noteStore.load()
 
+defaultToFirstNote()
+
 function hideSidebar() {
   sidebarStore.show = false
 }
 
 function openNote(note: Note | null) {
   hideSidebar()
-  router.push(`/${note?.id ?? ''}`)
+  router.push(`/${note?.id ?? 'new'}`)
 }
+
+function defaultToFirstNote() {
+  if (route.path === '' || route.path === '/') {
+    openNote(noteStore.notes.length ? noteStore.notes[0] : null)
+  }
+}
+
+watch(
+  () => route.path,
+  () => {
+    defaultToFirstNote()
+  }
+)
 </script>
 
 <template>

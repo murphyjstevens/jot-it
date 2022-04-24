@@ -17,6 +17,7 @@ const routes = [
     children: [
       { path: '', component: NoteItem },
       { path: 'edit', component: NoteEdit },
+      { path: 'new', component: NoteEdit },
     ],
   },
 ] as Array<RouteRecordRaw>

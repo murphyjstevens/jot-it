@@ -73,7 +73,7 @@ watch(
   () => {
     const pathArray = route.path.split('/')
     const lastPath = pathArray[pathArray.length - 1]
-    isEdit.value = lastPath === 'edit'
+    isEdit.value = lastPath === 'edit' || lastPath === 'new'
   }
 )
 
