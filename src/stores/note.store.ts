@@ -6,6 +6,7 @@ export const useNoteStore = defineStore('note', {
   state: () => ({
     notes: new Array<Note>(),
     currentNote: { markdownText: '' } as Note,
+    editNote: { markdownText: '' } as Note,
   }),
   actions: {
     load(): void {
@@ -28,22 +29,28 @@ export const useNoteStore = defineStore('note', {
 
       this.notes = noteList
     },
-    saveNote(updatedNote: Note): void {
-      if (!this.notes.some((n) => n.id === updatedNote.id)) {
+    setEditNote() {
+      this.editNote = { ...this.currentNote }
+    },
+    saveNote(): void {
+      if (!this.notes.some((n) => n.id === this.editNote.id)) {
         const currentIds: Array<number> = this.notes.map((n) => n.id ?? 0)
         const maxNoteId = currentIds.length
           ? currentIds.reduce((a: number, b: number) => (a > b ? a : b))
           : 0
-        updatedNote.id = maxNoteId + 1
+        this.editNote.id = maxNoteId + 1
       }
-      updatedNote.updatedDate = new Date()
+      this.editNote.updatedDate = new Date()
       this.notes = [
-        ...this.notes.filter((n) => n.id !== updatedNote.id),
-        updatedNote,
+        ...this.notes.filter((n) => n.id !== this.editNote.id),
+        this.editNote,
       ].sort((a, b) => a?.title?.localeCompare(b.title) ?? -1)
 
-      if (this.currentNote === null || this.currentNote.id === updatedNote.id) {
-        this.currentNote = updatedNote
+      if (
+        this.currentNote === null ||
+        this.currentNote.id === this.editNote.id
+      ) {
+        this.currentNote = { ...this.editNote }
       }
       localStorage.setItem('notes', JSON.stringify(this.notes))
     },

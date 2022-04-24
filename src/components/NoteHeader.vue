@@ -57,7 +57,8 @@ function loadNote() {
 
 function save() {
   if (canSave.value) {
-    // noteStore.saveNote(note.value)
+    noteStore.saveNote()
+    router.push(`/${noteStore.currentNote.id}`)
   }
 }
 
@@ -73,7 +74,6 @@ watch(
     const pathArray = route.path.split('/')
     const lastPath = pathArray[pathArray.length - 1]
     isEdit.value = lastPath === 'edit'
-    console.log(isEdit.value)
   }
 )
 

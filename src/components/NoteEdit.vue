@@ -26,7 +26,8 @@ const markdownIt: MarkdownIt = new MarkdownIt({
   },
 })
 
-const note: Ref<Note> = ref({ ...noteStore.currentNote })
+noteStore.setEditNote()
+const note: Ref<Note> = ref(noteStore.editNote)
 
 const markdownHtml: Ref<string> = computed(() =>
   markdownIt.render(note.value.markdownText)
@@ -35,7 +36,7 @@ const markdownHtml: Ref<string> = computed(() =>
 watch(
   () => noteStore.currentNote,
   () => {
-    note.value = noteStore.currentNote
+    noteStore.setEditNote()
   }
 )
 </script>
