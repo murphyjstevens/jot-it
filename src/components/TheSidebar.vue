@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
-import { useSidebarStore } from '@/stores/sidebar.store';
+import { useSidebarStore } from '@/stores/sidebar.store'
+
+const router = useRouter()
 
 const noteStore = useNoteStore()
 const sidebarStore = useSidebarStore()
@@ -14,7 +18,7 @@ function hideSidebar() {
 
 function openNote(note: Note | null) {
   hideSidebar()
-  noteStore.open(note)
+  router.push(`/${note?.id ?? ''}`)
 }
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, type Ref } from 'vue'
+import { computed, ref, watch, type Ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 import highlightJs from 'highlight.js'
 
@@ -26,22 +26,18 @@ const markdownIt: MarkdownIt = new MarkdownIt({
   },
 })
 
-const note: Ref<Note> = ref({} as Note)
-loadNote()
+const note: Ref<Note> = ref({ ...noteStore.currentNote })
 
 const markdownHtml: Ref<string> = computed(() =>
   markdownIt.render(note.value.markdownText)
 )
 
-noteStore.$subscribe(() => {
-  loadNote()
-})
-
-function loadNote() {
-  note.value = noteStore.currentNote
-    ? ({ ...noteStore.currentNote } as Note)
-    : ({ markdownText: '', icon: 'journal' } as Note)
-}
+watch(
+  () => noteStore.currentNote,
+  () => {
+    note.value = noteStore.currentNote
+  }
+)
 </script>
 
 <template>
