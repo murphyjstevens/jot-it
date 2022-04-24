@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import ToastList from './components/ToastList.vue'
 import { useToastStore } from './stores/toast.store'
-import TheSidebar from './components/TheSidebar.vue'
-import NoteItem from './components/NoteItem.vue'
 
 const toastStore = useToastStore()
 
@@ -14,11 +12,7 @@ window.addEventListener('error', function (event: ErrorEvent) {
 
 <template>
   <div class="app-wrapper flex-row">
-    <TheSidebar />
-    <main class="flex-1">
-      <NoteItem />
-    </main>
-
+    <router-view></router-view>
     <ToastList />
   </div>
 </template>
@@ -37,10 +31,5 @@ window.addEventListener('error', function (event: ErrorEvent) {
 
 .app-wrapper {
   width: 100%;
-}
-
-main {
-  width: 100%;
-  padding: 0px 10px;
 }
 </style>

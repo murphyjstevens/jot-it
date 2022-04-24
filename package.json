@@ -19,7 +19,8 @@
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.13",
     "serve-static": "^1.15.0",
-    "vue": "^3.2.31"
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.14"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
