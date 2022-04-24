@@ -4,11 +4,14 @@ import MarkdownIt from 'markdown-it'
 import highlightJs from 'highlight.js'
 
 import { useNoteStore } from '@/stores/note.store'
+import { useSidebarStore } from '@/stores/sidebar.store'
 import type { Note } from '@/models/note.model'
 
 import iconList from '../assets/bootstrap-icon-list.json'
 
 const noteStore = useNoteStore()
+const sidebarStore = useSidebarStore()
+
 const markdownIt: MarkdownIt = new MarkdownIt({
   breaks: true,
   linkify: true,
@@ -53,16 +56,21 @@ function save() {
     noteStore.saveNote(note.value)
   }
 }
+
+function showSidebar() {
+  sidebarStore.show = true
+}
 </script>
 
 <template>
   <div class="note-wrapper flex-column">
-    <div class="flex-row justify-content-end mt-2">
-      <span class="mr-2" v-if="note?.updatedDate">
-        <time title="Last Updated">{{
-          note.updatedDate.toLocaleString()
-        }}</time>
-      </span>
+    <div class="action-bar flex-row mt-2">
+      <button class="hamburger-button" @click="showSidebar()">
+        <i class="bi-list"></i>
+      </button>
+      <time class="mr-2" v-if="note?.updatedDate" title="Last Updated">{{
+        note.updatedDate.toLocaleString()
+      }}</time>
       <button
         class="btn-primary"
         @click="save()"
@@ -105,6 +113,14 @@ function save() {
 .note-wrapper {
   height: 100%;
   width: 100%;
+}
+
+.action-bar {
+  justify-content: flex-end;
+
+  .hamburger-button {
+    display: none;
+  }
 }
 
 .note-input-row {
@@ -156,6 +172,18 @@ function save() {
 @media screen and (max-width: 1024px) {
   .note-wrapper {
     width: 100%;
+  }
+
+  .action-bar {
+    justify-content: space-between;
+
+    .hamburger-button {
+      display: flex;
+    }
+
+    time {
+      display: none;
+    }
   }
 
   .note-input-row {

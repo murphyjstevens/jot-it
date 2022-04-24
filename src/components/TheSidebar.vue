@@ -1,18 +1,25 @@
 <script setup lang="ts">
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
+import { useSidebarStore } from '@/stores/sidebar.store';
 
 const noteStore = useNoteStore()
+const sidebarStore = useSidebarStore()
 
 noteStore.load()
 
+function hideSidebar() {
+  sidebarStore.show = false
+}
+
 function openNote(note: Note | null) {
+  hideSidebar()
   noteStore.open(note)
 }
 </script>
 
 <template>
-  <aside>
+  <aside :class="{ 'show-sidebar': sidebarStore.show }">
     <h1><a href="/">Jot-It</a></h1>
     <hr />
     <button class="btn-primary" @click="openNote(null)">
@@ -31,6 +38,11 @@ function openNote(note: Note | null) {
       </button>
     </div>
   </aside>
+  <div
+    class="sidebar-shadow"
+    :class="{ 'sidebar-shadow-show': sidebarStore.show }"
+    @click="hideSidebar()"
+  ></div>
 </template>
 
 <style scoped lang="scss">
@@ -79,6 +91,44 @@ aside {
         text-overflow: ellipsis;
       }
     }
+  }
+}
+
+.sidebar-shadow {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  aside {
+    position: absolute;
+    width: 80%;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease-out;
+    z-index: 5;
+  }
+
+  .show-sidebar {
+    display: flex;
+    flex-direction: column;
+    transform: translateX(0);
+  }
+
+  .sidebar-shadow {
+    display: flex;
+    position: absolute;
+    right: 0;
+    background-color: var(--color-background);
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .sidebar-shadow-show {
+    opacity: 0.8;
+    pointer-events: all;
   }
 }
 </style>
