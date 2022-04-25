@@ -29,7 +29,7 @@ export const useNoteStore = defineStore('note', {
 
       this.notes = noteList
     },
-    setEditNote() {
+    setEditNote(): void {
       this.editNote = { ...this.currentNote }
     },
     saveNote(): void {

@@ -37,6 +37,7 @@ watch(
   () => noteStore.currentNote,
   () => {
     noteStore.setEditNote()
+    note.value = noteStore.editNote
   }
 )
 </script>

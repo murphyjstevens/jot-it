@@ -16,8 +16,11 @@ const router: Router = useRouter()
 const noteStore = useNoteStore()
 const sidebarStore = useSidebarStore()
 
-const canSave: Ref<boolean> = computed(() => !!noteStore.currentNote?.title)
+const canSave: Ref<boolean> = computed(() => !!noteStore.editNote?.title)
 const isEdit: Ref<boolean> = ref(false)
+
+loadNote()
+setIsEdit()
 
 const canNotSaveReason: Ref<string> = computed(() =>
   !noteStore.currentNote?.title ? 'The title is required' : ''
@@ -31,7 +34,7 @@ function goToEdit() {
 }
 
 function loadNote() {
-  if (route.params.id === '') {
+  if (route.params.id === '' || route.path === '/new') {
     noteStore.currentNote = { markdownText: '', icon: 'journal' } as Note
     return
   }
@@ -66,20 +69,16 @@ function showSidebar() {
   sidebarStore.show = true
 }
 
-loadNote()
+function setIsEdit() {
+  const pathArray = route.path.split('/')
+  const lastPath = pathArray[pathArray.length - 1]
+  isEdit.value = lastPath === 'edit' || lastPath === 'new'
+}
 
 watch(
   () => route.path,
   () => {
-    const pathArray = route.path.split('/')
-    const lastPath = pathArray[pathArray.length - 1]
-    isEdit.value = lastPath === 'edit' || lastPath === 'new'
-  }
-)
-
-watch(
-  () => route.params.id,
-  () => {
+    setIsEdit()
     loadNote()
   }
 )
