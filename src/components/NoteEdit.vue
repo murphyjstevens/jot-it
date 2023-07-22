@@ -63,7 +63,7 @@ watch(
         class="flex-1 bg-zinc-800 border-1 border-zinc-700"
       ></textarea>
     </div>
-    <div class="mb-4 flex flex-col flex-1 basis-0">
+    <div class="mb-4 flex flex-col flex-1 basis-0 overflow-y-scroll">
       <div
         id="html"
         v-html="markdownHtml"
