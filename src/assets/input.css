@@ -1,4 +1,4 @@
-input, textarea, select {
+input, textarea {
     background-color: var(--vt-c-black-mute);
     color: inherit;
     border: 1px solid var(--color-border);
@@ -6,10 +6,6 @@ input, textarea, select {
     resize: none;
 }
 
-input:disabled, textarea:disabled, select:disabled {
+input:disabled, textarea:disabled {
     cursor: not-allowed;
-}
-
-select:focus {
-    box-shadow: 0 0 0 .15rem var(--accent-color-dim);
 }

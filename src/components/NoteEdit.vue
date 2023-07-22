@@ -3,6 +3,7 @@ import { computed, ref, watch, type Ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 import highlightJs from 'highlight.js'
 
+import { AppSelect } from '@/components/library'
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
 
@@ -44,9 +45,9 @@ watch(
 
 <template>
   <div class="pt-2 px-2 flex flex-col lg:flex-row">
-    <select v-model="note.icon">
+    <AppSelect v-model="note.icon" class="mb-2 lg:me-2 lg:mb-0">
       <option v-for="icon in iconList" v-bind:key="icon">{{ icon }}</option>
-    </select>
+    </AppSelect>
     <h2 class="flex flex-col flex-1">
       <i
         class="h-full w-8 ms-1 absolute flex justify-center items-center text-lg z-10"
@@ -56,14 +57,14 @@ watch(
     </h2>
   </div>
   <div id="markdown" class="p-2 flex flex-col flex-1 justify-between">
-    <div class="mb-4 flex flex-col flex-1 basis-0">
+    <div class="mb-2 flex flex-col flex-1 basis-0">
       <textarea
         id="markdown"
         v-model="note.markdownText"
-        class="flex-1 bg-zinc-800 border-1 border-zinc-700"
+        class="flex-1 bg-zinc-800 border border-zinc-700"
       ></textarea>
     </div>
-    <div class="mb-4 flex flex-col flex-1 basis-0 overflow-y-scroll">
+    <div class="flex flex-col flex-1 basis-0 overflow-y-scroll">
       <div
         id="html"
         v-html="markdownHtml"
