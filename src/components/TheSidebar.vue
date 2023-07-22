@@ -49,7 +49,7 @@ watch(
     </h1>
     <hr class="border-zinc-700" />
     <button
-      class="bg-emerald-500 transition-all mt-4 hover:brightness-75 hover:bg-emerald-500"
+      class="bg-emerald-500 transition-all mx-3 my-4 hover:brightness-75 hover:bg-emerald-500"
       @click="openNote(null)"
     >
       <i class="bi-plus-lg btn-lg"></i>
@@ -60,7 +60,7 @@ watch(
         v-bind:key="note.id"
         @click="openNote(note)"
         :title="note.title"
-        class="p-2 flex flex-row bg-zinc-800 border-b-2 border-zinc-700 text-lg text-ellipsis hover:bg-zinc-800 hover:brightness-125"
+        class="px-2 py-2 mx-3 flex flex-row bg-zinc-900 transition-colors text-ellipsis hover:bg-zinc-700"
       >
         <i class="mr-2" :class="[`bi-${note.icon ?? 'journal-text'}`]"></i>
         <span class="overflow-hidden text-ellipsis">{{ note.title }}</span>
