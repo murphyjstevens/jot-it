@@ -1,4 +1,7 @@
 import './assets/base.css'
+import 'normalize.css/normalize.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'highlight.js/styles/dark.css'
 
 import { createApp, h } from 'vue'
 import { createPinia } from 'pinia'

@@ -16,17 +16,3 @@ window.addEventListener('error', function (event: ErrorEvent) {
     <ToastList />
   </div>
 </template>
-
-<style>
-@import 'normalize.css/normalize.css';
-@import 'bootstrap-icons/font/bootstrap-icons.css';
-@import 'highlight.js/styles/dark.css';
-
-@import './assets/button.css';
-@import './assets/input.css';
-@import './assets/markdown.css';
-
-.app-wrapper {
-  width: 100%;
-}
-</style>

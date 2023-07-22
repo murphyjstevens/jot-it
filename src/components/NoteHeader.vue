@@ -9,6 +9,7 @@ import {
 import { useNoteStore } from '@/stores/note.store'
 import { useSidebarStore } from '@/stores/sidebar.store'
 import type { Note } from '@/models/note.model'
+import { AppButton } from './library'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const router: Router = useRouter()
@@ -88,9 +89,14 @@ watch(
   <div
     class="px-2 mt-2 flex flex-row justify-between items-center lg:justify-end"
   >
-    <button class="flex lg:hidden" @click="showSidebar()">
+    <AppButton
+      class="lg:hidden"
+      variant="text"
+      color="primary"
+      @click="showSidebar()"
+    >
       <i class="bi-list"></i>
-    </button>
+    </AppButton>
     <time
       v-if="noteStore.currentNote?.updatedDate"
       class="me-2 hidden lg:flex"
@@ -98,15 +104,24 @@ watch(
     >
       {{ noteStore.currentNote.updatedDate.toLocaleString() }}
     </time>
-    <button v-if="!isEdit" class="btn-primary" @click="goToEdit()">Edit</button>
-    <button
+
+    <AppButton
+      v-if="!isEdit"
+      variant="default"
+      color="primary"
+      @click="goToEdit()"
+      >Edit</AppButton
+    >
+    <AppButton
       v-if="isEdit"
       class="btn-primary"
+      variant="default"
+      color="primary"
       @click="save()"
       :disabled="!canSave"
       :title="canNotSaveReason"
     >
       Save
-    </button>
+    </AppButton>
   </div>
 </template>

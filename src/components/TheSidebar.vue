@@ -5,6 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
 import { useSidebarStore } from '@/stores/sidebar.store'
+import AppButton from './library/AppButton.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -48,23 +49,27 @@ watch(
       <a href="/">Jot-It</a>
     </h1>
     <hr class="border-zinc-700" />
-    <button
-      class="bg-emerald-500 transition-all mx-3 my-4 hover:brightness-75 hover:bg-emerald-500"
+    <AppButton
+      class="mx-3 my-4"
+      color="primary"
+      variant="default"
       @click="openNote(null)"
     >
       <i class="bi-plus-lg btn-lg"></i>
-    </button>
+    </AppButton>
     <div class="flex flex-col overflow-y-auto">
-      <button
+      <AppButton
         v-for="note in noteStore.notes"
         v-bind:key="note.id"
         @click="openNote(note)"
         :title="note.title"
-        class="px-2 py-2 mx-3 flex flex-row bg-zinc-900 transition-colors text-ellipsis hover:bg-zinc-700"
+        color="default"
+        variant="text"
+        class="mx-4 !justify-start"
       >
         <i class="mr-2" :class="[`bi-${note.icon ?? 'journal-text'}`]"></i>
         <span class="overflow-hidden text-ellipsis">{{ note.title }}</span>
-      </button>
+      </AppButton>
     </div>
   </aside>
   <div

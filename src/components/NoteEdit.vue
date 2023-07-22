@@ -3,7 +3,7 @@ import { computed, ref, watch, type Ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 import highlightJs from 'highlight.js'
 
-import { AppSelect } from '@/components/library'
+import { AppInput, AppSelect, AppTextarea } from '@/components/library'
 import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
 
@@ -53,16 +53,20 @@ watch(
         class="h-full w-8 ms-1 absolute flex justify-center items-center text-lg z-10"
         :class="[`bi-${note.icon}`]"
       ></i>
-      <input class="ps-10 text-lg" v-model="note.title" placeholder="Title" />
+      <AppInput
+        class="ps-10 text-lg"
+        v-model="note.title"
+        placeholder="Title"
+      />
     </h2>
   </div>
   <div id="markdown" class="p-2 flex flex-col flex-1 justify-between">
     <div class="mb-2 flex flex-col flex-1 basis-0">
-      <textarea
+      <AppTextarea
         id="markdown"
         v-model="note.markdownText"
         class="flex-1 bg-zinc-800 border border-zinc-700"
-      ></textarea>
+      />
     </div>
     <div class="flex flex-col flex-1 basis-0 overflow-y-scroll">
       <div
