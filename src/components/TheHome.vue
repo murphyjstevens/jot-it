@@ -4,29 +4,13 @@ import NoteHeader from './NoteHeader.vue'
 </script>
 
 <template>
-  <div class="home-wrapper flex-row">
+  <div class="w-full flex flex-row">
     <TheSidebar />
-    <main class="flex-1">
-      <div class="note-wrapper flex-column">
+    <main class="w-full flex flex-1">
+      <div class="w-full h-full flex flex-col">
         <NoteHeader />
         <router-view></router-view>
       </div>
     </main>
   </div>
 </template>
-
-<style scoped lang="scss">
-.home-wrapper {
-  width: 100%;
-}
-
-main {
-  width: 100%;
-  padding: 0px 10px;
-}
-
-.note-wrapper {
-  height: 100%;
-  width: 100%;
-}
-</style>

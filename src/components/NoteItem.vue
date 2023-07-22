@@ -29,26 +29,13 @@ const markdownHtml: Ref<string> = computed(() =>
 </script>
 
 <template>
-  <div class="note-display-wrapper">
-    <div class="note-title mt-2">
-      <h1 class="green">
-        <i
-          class="note-icon"
-          :class="[`bi-${noteStore.currentNote?.icon ?? 'journal'}`]"
-        ></i>
-        <span class="ml-2">{{ noteStore.currentNote?.title }}</span>
+  <div class="px-3">
+    <div class="border-b-2 border-zinc-700 mt-2">
+      <h1 class="text-emerald-500">
+        <i :class="[`bi-${noteStore.currentNote?.icon ?? 'journal'}`]"></i>
+        <span class="ms-2">{{ noteStore.currentNote?.title }}</span>
       </h1>
     </div>
-    <div v-html="markdownHtml" class="markdown-display"></div>
+    <div v-html="markdownHtml" class="markdown-display mt-2"></div>
   </div>
 </template>
-
-<style scoped lang="scss">
-// breakpoints: 1024, 768, 640
-.note-display-wrapper {
-  padding: 0 1.5rem;
-}
-.note-title {
-  border-bottom: 1px solid var(--color-border);
-}
-</style>

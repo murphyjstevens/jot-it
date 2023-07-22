@@ -11,12 +11,12 @@ const toasts: Ref<Array<Toast>> = computed(() => toastStore.toasts)
 </script>
 
 <template>
-  <ul class="toast-wrapper flex-column">
+  <ul class="p-0 m-0 fixed right-8 top-8 list-none z-40 flex-column">
     <li
-      class="toast"
+      class="w-80 p-4 rounded-lg mt-4 first:mt-0"
       :class="{
-        error: toast.type === ToastType.Error,
-        success: toast.type === ToastType.Success,
+        'bg-red-600': toast.type === ToastType.Error,
+        'bg-green-600': toast.type === ToastType.Success,
       }"
       v-for="toast in toasts"
       v-bind:key="toast.id"
@@ -26,36 +26,3 @@ const toasts: Ref<Array<Toast>> = computed(() => toastStore.toasts)
     </li>
   </ul>
 </template>
-
-<style scoped lang="scss">
-.toast-wrapper {
-  position: fixed;
-  right: 2rem;
-  top: 2rem;
-  z-index: 99;
-
-  color: var(--color-text);
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-
-  .toast {
-    width: 300px;
-    padding: 1rem;
-    border-radius: 5px;
-    z-index: 99;
-
-    &:not(:first-child) {
-      margin-top: 1rem;
-    }
-  }
-
-  .error {
-    background-color: rgb(226, 72, 72);
-  }
-
-  .success {
-    background-color: rgb(47, 131, 61);
-  }
-}
-</style>

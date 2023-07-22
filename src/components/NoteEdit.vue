@@ -43,94 +43,32 @@ watch(
 </script>
 
 <template>
-  <div class="note-input-row mt-2">
+  <div class="pt-2 px-2 flex flex-col lg:flex-row">
     <select v-model="note.icon">
       <option v-for="icon in iconList" v-bind:key="icon">{{ icon }}</option>
     </select>
-    <h2 class="note-input-wrapper flex-column">
-      <i class="note-icon" :class="[`bi-${note.icon}`]"></i>
-      <input id="title" v-model="note.title" placeholder="Title" />
+    <h2 class="flex flex-col flex-1">
+      <i
+        class="h-full w-8 ms-1 absolute flex justify-center items-center text-lg z-10"
+        :class="[`bi-${note.icon}`]"
+      ></i>
+      <input class="ps-10 text-lg" v-model="note.title" placeholder="Title" />
     </h2>
   </div>
-  <div id="markdown" class="markdown-wrapper justify-content-space-between">
-    <div class="flex-column markdown-column mb-4">
+  <div id="markdown" class="p-2 flex flex-col flex-1 justify-between">
+    <div class="mb-4 flex flex-col flex-1 basis-0">
       <textarea
         id="markdown"
         v-model="note.markdownText"
-        class="markdown-area"
+        class="flex-1 bg-zinc-800 border-1 border-zinc-700"
       ></textarea>
     </div>
-    <div class="flex-column markdown-column mb-4">
+    <div class="mb-4 flex flex-col flex-1 basis-0">
       <div
         id="html"
         v-html="markdownHtml"
-        class="markdown-area markdown-display"
+        class="p-5 flex-1 bg-zinc-800 border-1 border-zinc-700 markdown-display"
       ></div>
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-// breakpoints: 1024, 768, 640
-
-.note-input-row {
-  display: flex;
-  flex-direction: row;
-
-  .note-input-wrapper {
-    flex-grow: 1;
-
-    & > input {
-      font-size: 1.5rem;
-      padding-left: 2.5rem;
-    }
-  }
-
-  .note-icon {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 2rem;
-    margin-left: 0.25rem;
-    font-size: 1.5rem;
-    z-index: 2;
-  }
-}
-
-.markdown-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.markdown-column {
-  height: 50%;
-  transition: width 0.5s ease-out, opacity 0.5s ease-in;
-}
-
-.markdown-area {
-  flex: 1;
-  background-color: var(--vt-c-black-mute);
-  border: 1px solid var(--color-border);
-  color: inherit;
-  padding: 12px 20px;
-  overflow: auto;
-}
-
-@media screen and (max-width: 1024px) {
-  .note-input-row {
-    flex-direction: column;
-  }
-
-  .markdown-wrapper {
-    flex-direction: column;
-  }
-
-  .markdown-column {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-}
-</style>

@@ -5,27 +5,27 @@ button {
   cursor: pointer;
   padding: 5px 10px;
   transition: background-color 0.5s;
+}
 
-  &:hover {
-    background-color: darkgrey;
-  }
+button:hover {
+  background-color: darkgrey;
+}
 
-  &:disabled {
-    background-color: whitesmoke;
-    cursor: not-allowed;
-  }
+button:disabled {
+  background-color: whitesmoke;
+  cursor: not-allowed;
 }
 
 .btn-primary {
   background-color: var(--color-accent);
+}
 
-  &:hover {
-    background-color: var(--color-accent-darker);
-  }
+.btn-primary:hover {
+  background-color: var(--color-accent-darker);
+}
 
-  &:disabled {
-    background-color: var(--color-accent-dim);
-  }
+.btn-primary:disabled {
+  background-color: var(--color-accent-dim);
 }
 
 .btn-lg {

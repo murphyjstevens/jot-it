@@ -85,13 +85,15 @@ watch(
 </script>
 
 <template>
-  <div class="action-bar flex-row mt-2">
-    <button class="hamburger-button" @click="showSidebar()">
+  <div
+    class="px-2 mt-2 flex flex-row justify-between items-center lg:justify-end"
+  >
+    <button class="flex lg:hidden" @click="showSidebar()">
       <i class="bi-list"></i>
     </button>
     <time
-      class="mr-2"
       v-if="noteStore.currentNote?.updatedDate"
+      class="me-2 hidden lg:flex"
       title="Last Updated"
     >
       {{ noteStore.currentNote.updatedDate.toLocaleString() }}
@@ -108,27 +110,3 @@ watch(
     </button>
   </div>
 </template>
-
-<style scoped lang="scss">
-.action-bar {
-  justify-content: flex-end;
-
-  .hamburger-button {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .action-bar {
-    justify-content: space-between;
-
-    .hamburger-button {
-      display: flex;
-    }
-
-    time {
-      display: none;
-    }
-  }
-}
-</style>

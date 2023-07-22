@@ -11,23 +11,20 @@ window.addEventListener('error', function (event: ErrorEvent) {
 </script>
 
 <template>
-  <div class="app-wrapper flex-row">
+  <div class="w-full flex flex-row">
     <router-view></router-view>
     <ToastList />
   </div>
 </template>
 
-<style lang="scss">
+<style>
 @import 'normalize.css/normalize.css';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
-@import 'highlight.js/scss/dark.scss';
+@import 'highlight.js/styles/dark.css';
 
-@import './assets/base.css';
-@import './assets/button.scss';
-@import './assets/flex.css';
-@import './assets/input.scss';
-@import './assets/spacing.scss';
-@import './assets/markdown.scss';
+@import './assets/button.css';
+@import './assets/input.css';
+@import './assets/markdown.css';
 
 .app-wrapper {
   width: 100%;
