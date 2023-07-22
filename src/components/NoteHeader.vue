@@ -19,6 +19,7 @@ const sidebarStore = useSidebarStore()
 
 const canSave: Ref<boolean> = computed(() => !!noteStore.editNote?.title)
 const isEdit: Ref<boolean> = ref(false)
+const isNew: Ref<boolean> = ref(false)
 
 loadNote()
 setIsEdit()
@@ -59,6 +60,10 @@ function loadNote() {
   noteStore.currentNote = foundNote
 }
 
+function cancel() {
+  router.push(`/${noteStore.currentNote.id}`)
+}
+
 function save() {
   if (canSave.value) {
     noteStore.saveNote()
@@ -74,6 +79,7 @@ function setIsEdit() {
   const pathArray = route.path.split('/')
   const lastPath = pathArray[pathArray.length - 1]
   isEdit.value = lastPath === 'edit' || lastPath === 'new'
+  isNew.value = lastPath === 'new'
 }
 
 watch(
@@ -97,31 +103,43 @@ watch(
     >
       <i class="bi-list"></i>
     </AppButton>
-    <time
-      v-if="noteStore.currentNote?.updatedDate"
-      class="me-2 hidden lg:flex"
-      title="Last Updated"
-    >
-      {{ noteStore.currentNote.updatedDate.toLocaleString() }}
-    </time>
 
-    <AppButton
-      v-if="!isEdit"
-      variant="default"
-      color="primary"
-      @click="goToEdit()"
-      >Edit</AppButton
-    >
-    <AppButton
-      v-if="isEdit"
-      class="btn-primary"
-      variant="default"
-      color="primary"
-      @click="save()"
-      :disabled="!canSave"
-      :title="canNotSaveReason"
-    >
-      Save
-    </AppButton>
+    <div class="flex flex-row items-center">
+      <time
+        v-if="noteStore.currentNote?.updatedDate && !isEdit"
+        class="me-2 hidden lg:flex"
+        title="Last Updated"
+      >
+        {{ noteStore.currentNote.updatedDate.toLocaleString() }}
+      </time>
+
+      <AppButton
+        v-if="!isEdit"
+        variant="default"
+        color="primary"
+        @click="goToEdit()"
+        >Edit</AppButton
+      >
+
+      <AppButton
+        v-if="isEdit && !isNew"
+        variant="text"
+        color="default"
+        @click="cancel()"
+        class="me-2"
+      >
+        Cancel
+      </AppButton>
+      <AppButton
+        v-if="isEdit"
+        variant="default"
+        color="primary"
+        @click="save()"
+        :disabled="!canSave"
+        :title="canNotSaveReason"
+      >
+        Save
+      </AppButton>
+    </div>
   </div>
 </template>
