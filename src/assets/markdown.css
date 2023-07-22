@@ -1,7 +1,7 @@
 .markdown-display blockquote {
   padding: 10px 20px;
   margin: 0 0 20px 0;
-  border-left: 5px solid var(--color-border);
+  border-left: 5px solid rgba(84, 84, 84, 0.48);
 }
 
 .markdown-display h1, .markdown-display h2, .markdown-display h3 {
@@ -9,7 +9,7 @@
 }
 
 .markdown-display h1 {
-  color: var(--color-accent);
+  color: rgb(16, 185, 129);
 }
 
 .markdown-display p {
@@ -22,10 +22,10 @@
   margin: 0 0 10px;
   font-size: 13px;
   line-height: 1.42857143;
-  color: var(--color-text);
+  color: rgba(235, 235, 235, 0.64);
   word-break: break-all;
   word-wrap: break-word;
-  background-color: var(--color-background-soft);
-  border: 1px solid var(--color-border);
+  background-color: #222222;
+  border: 1px solid rgba(84, 84, 84, 0.48);
   border-radius: 4px;
 }

@@ -31,7 +31,7 @@ const markdownHtml: Ref<string> = computed(() =>
 <template>
   <div class="px-3">
     <div class="border-b-2 border-zinc-700 mt-2">
-      <h1 class="text-emerald-500">
+      <h1 class="mb-2 text-2xl text-emerald-500">
         <i :class="[`bi-${noteStore.currentNote?.icon ?? 'journal'}`]"></i>
         <span class="ms-2">{{ noteStore.currentNote?.title }}</span>
       </h1>

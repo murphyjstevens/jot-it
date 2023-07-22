@@ -45,7 +45,7 @@ watch(
     class="-translate-x-full absolute hidden h-full w-80 flex-col justify-stretch bg-zinc-900 border-r-2 border-zinc-700 z-20 lg:translate-x-0 lg:relative lg:flex"
     :class="{ '!flex !translate-x-0': sidebarStore.show }"
   >
-    <h1 class="text-center">
+    <h1 class="my-4 text-4xl text-center">
       <a href="/">Jot-It</a>
     </h1>
     <hr class="border-zinc-700" />

@@ -1,5 +1,4 @@
 import './assets/base.css'
-import 'normalize.css/normalize.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import 'highlight.js/styles/dark.css'
 
