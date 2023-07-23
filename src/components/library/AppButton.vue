@@ -10,7 +10,7 @@ defineProps<{
 
 <template>
   <button
-    class="group py-2 px-4 flex flex-row justify-center border border-transparent rounded-md cursor-pointer"
+    class="group py-2 px-4 flex flex-row justify-center border border-transparent rounded-md cursor-pointer active:ring focus:ring"
     :class="[
       {
         'bg-transparent': variant === ButtonVariant.Text,

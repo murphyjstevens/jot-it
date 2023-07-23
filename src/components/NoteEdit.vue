@@ -44,8 +44,8 @@ watch(
 </script>
 
 <template>
-  <div class="pt-2 px-2 flex flex-col lg:flex-row">
-    <AppSelect v-model="note.icon" class="mb-2 lg:me-2 lg:mb-0">
+  <div class="pt-2 px-2 flex flex-col md:flex-row">
+    <AppSelect v-model="note.icon" class="mb-2 md:me-2 md:mb-0">
       <option v-for="icon in iconList" v-bind:key="icon">{{ icon }}</option>
     </AppSelect>
     <h2 class="flex flex-col flex-1">
@@ -60,19 +60,22 @@ watch(
       />
     </h2>
   </div>
-  <div id="markdown" class="p-2 flex flex-col flex-1 justify-between">
-    <div class="mb-2 flex flex-col flex-1 basis-0">
+  <div
+    id="markdown"
+    class="p-2 flex flex-col flex-1 justify-between md:flex-row"
+  >
+    <div class="mb-2 flex flex-col flex-1 basis-0 md:mb-0 md:me-1">
       <AppTextarea
         id="markdown"
         v-model="note.markdownText"
         class="flex-1 bg-zinc-800 border border-zinc-700"
       />
     </div>
-    <div class="flex flex-col flex-1 basis-0 overflow-y-scroll">
+    <div class="flex flex-col flex-1 basis-0 overflow-y-scroll md:ms-1">
       <div
         id="html"
         v-html="markdownHtml"
-        class="p-5 flex-1 bg-zinc-800 border-1 border-zinc-700 markdown-display"
+        class="p-5 flex-1 bg-zinc-800 border border-zinc-700 markdown-display"
       ></div>
     </div>
   </div>

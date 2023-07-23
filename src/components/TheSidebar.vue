@@ -42,7 +42,7 @@ watch(
 
 <template>
   <aside
-    class="-translate-x-full absolute hidden h-full w-80 flex-col justify-stretch bg-zinc-900 border-r-2 border-zinc-700 z-20 lg:translate-x-0 lg:relative lg:flex"
+    class="-translate-x-full fixed hidden h-full w-80 flex-col justify-stretch bg-zinc-900 border-r-2 border-zinc-700 z-20 lg:translate-x-0 lg:relative lg:flex"
     :class="{ '!flex !translate-x-0': sidebarStore.show }"
   >
     <h1 class="my-4 text-4xl text-center">
@@ -50,14 +50,14 @@ watch(
     </h1>
     <hr class="border-zinc-700" />
     <AppButton
-      class="mx-3 my-4"
+      class="mx-3 my-4 text-lg"
       color="primary"
       variant="default"
       @click="openNote(null)"
     >
       <i class="bi-plus-lg btn-lg"></i>
     </AppButton>
-    <div class="flex flex-col overflow-y-auto">
+    <div class="py-2 flex flex-col overflow-y-auto">
       <AppButton
         v-for="note in noteStore.notes"
         v-bind:key="note.id"
