@@ -73,7 +73,7 @@ watch(
     </div>
   </aside>
   <div
-    class="w-full h-full absolute right-0 flex bg-black opacity-0 transition-opacity pointer-events-none z-10 lg:hidden"
+    class="w-full h-full fixed right-0 flex bg-black opacity-0 transition-opacity pointer-events-none z-10 lg:hidden"
     :class="{ 'opacity-80 pointer-events-auto': sidebarStore.show }"
     @click="hideSidebar()"
   ></div>

@@ -93,7 +93,7 @@ watch(
 
 <template>
   <div
-    class="px-2 mt-2 flex flex-row justify-between items-center lg:justify-end"
+    class="px-2 my-2 flex flex-row justify-between items-center lg:justify-end"
   >
     <AppButton
       class="lg:hidden"
