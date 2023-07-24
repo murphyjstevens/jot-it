@@ -17,15 +17,13 @@ export const useNoteStore = defineStore('note', {
       }
 
       let noteList = JSON.parse(json) as Array<Note>
-      noteList = noteList
-        .map(
-          (note) =>
-            ({
-              ...note,
-              updatedDate: note.updatedDate ? new Date(note.updatedDate) : null,
-            } as Note)
-        )
-        .sort((a, b) => a?.title?.localeCompare(b.title) ?? -1)
+      noteList = noteList.map(
+        (note) =>
+          ({
+            ...note,
+            updatedDate: note.updatedDate ? new Date(note.updatedDate) : null,
+          } as Note)
+      )
 
       this.notes = noteList
     },
@@ -44,7 +42,7 @@ export const useNoteStore = defineStore('note', {
       this.notes = [
         ...this.notes.filter((n) => n.id !== this.editNote.id),
         this.editNote,
-      ].sort((a, b) => a?.title?.localeCompare(b.title) ?? -1)
+      ]
 
       if (
         this.currentNote === null ||
@@ -52,6 +50,14 @@ export const useNoteStore = defineStore('note', {
       ) {
         this.currentNote = { ...this.editNote }
       }
+      localStorage.setItem('notes', JSON.stringify(this.notes))
+    },
+
+    reorderNotes(oldIndex: number, newIndex: number): void {
+      const movedNote: Note = { ...this.notes[oldIndex] }
+      const reorderedNotes = this.notes.filter((_, index) => index !== oldIndex)
+      reorderedNotes.splice(newIndex, 0, movedNote)
+      this.notes = reorderedNotes
       localStorage.setItem('notes', JSON.stringify(this.notes))
     },
   },

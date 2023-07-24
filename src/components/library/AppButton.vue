@@ -21,9 +21,13 @@ defineProps<{
       },
     ]"
   >
+    <!-- Button overlay (for hover shading) -->
     <span
       class="w-full h-full absolute top-0 left-0 bg-white opacity-0 border rounded-md pointer-events-none group-hover:opacity-10"
     ></span>
+
+    <!-- Button underlay (for click events) -->
+    <span class="w-full h-full absolute top-0 left-0"></span>
     <slot></slot>
   </button>
 </template>
