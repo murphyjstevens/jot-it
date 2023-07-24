@@ -71,7 +71,7 @@ watch(
         class="flex-1 bg-zinc-800 border border-zinc-700 resize-none"
       />
     </div>
-    <div class="flex flex-col flex-1 basis-0 overflow-y-scroll md:ms-1">
+    <div class="flex flex-col flex-1 basis-0 overflow-y-auto md:ms-1">
       <div
         id="html"
         v-html="markdownHtml"

@@ -8,7 +8,7 @@ import NoteHeader from './NoteHeader.vue'
     <TheSidebar />
     <main class="flex flex-col flex-1">
       <NoteHeader />
-      <div class="mb-2 flex flex-col flex-1 overflow-scroll">
+      <div class="mb-2 flex flex-col flex-1 overflow-auto">
         <router-view></router-view>
       </div>
     </main>
