@@ -75,7 +75,7 @@ watch(
       <div
         id="html"
         v-html="markdownHtml"
-        class="p-5 flex-1 bg-zinc-800 border border-zinc-700 markdown-display"
+        class="px-5 py-3 flex-1 bg-zinc-800 border border-zinc-700 rounded-lg markdown-display"
       ></div>
     </div>
   </div>

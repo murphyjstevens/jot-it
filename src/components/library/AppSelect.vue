@@ -17,7 +17,7 @@ const value = computed({
 <template>
   <select
     v-model="value"
-    class="py-3 px-5 bg-zinc-800 border border-zinc-700 text-inherit cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
+    class="py-3 px-5 bg-zinc-800 border border-zinc-700 rounded-lg text-inherit cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
   >
     <slot></slot>
   </select>
