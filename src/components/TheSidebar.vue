@@ -112,8 +112,8 @@ watch(
 
 <template>
   <aside
-    class="-translate-x-full fixed hidden h-full w-80 flex-col justify-stretch bg-zinc-900 border-r-2 border-zinc-700 z-20 lg:translate-x-0 lg:relative lg:flex"
-    :class="{ '!flex !translate-x-0': sidebarStore.show }"
+    class="-translate-x-full fixed h-full w-80 flex flex-col justify-stretch bg-zinc-900 border-r-2 border-zinc-700 z-20 transition-transform lg:translate-x-0 lg:relative"
+    :class="{ '!translate-x-0': sidebarStore.show }"
   >
     <h1 class="my-4 text-4xl text-center">
       <a href="/">Jot-It</a>
