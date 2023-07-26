@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-import type { Note } from '../models/note.model'
+import type { Note } from '@/models'
 
 export const useNoteStore = defineStore('note', {
   state: () => ({

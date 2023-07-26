@@ -3,7 +3,7 @@ import { computed, type Ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 import highlightJs from 'highlight.js'
 
-import { useNoteStore } from '@/stores/note.store'
+import { useNoteStore } from '@/stores'
 
 const noteStore = useNoteStore()
 

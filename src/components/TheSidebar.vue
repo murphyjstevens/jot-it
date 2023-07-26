@@ -2,10 +2,9 @@
 import { watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import { useNoteStore } from '@/stores/note.store'
+import { AppButton } from '@/components/library'
 import type { Note } from '@/models/note.model'
-import { useSidebarStore } from '@/stores/sidebar.store'
-import AppButton from './library/AppButton.vue'
+import { useNoteStore, useSidebarStore } from '@/stores'
 
 const route = useRoute()
 const router = useRouter()

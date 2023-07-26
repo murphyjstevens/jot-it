@@ -3,11 +3,10 @@ import { computed, ref, watch, type Ref } from 'vue'
 import MarkdownIt from 'markdown-it'
 import highlightJs from 'highlight.js'
 
+import iconList from '@/assets/bootstrap-icon-list.json'
 import { AppInput, AppSelect, AppTextarea } from '@/components/library'
-import { useNoteStore } from '@/stores/note.store'
 import type { Note } from '@/models/note.model'
-
-import iconList from '../assets/bootstrap-icon-list.json'
+import { useNoteStore } from '@/stores/note.store'
 
 const noteStore = useNoteStore()
 

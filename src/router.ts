@@ -5,15 +5,14 @@ import {
   type RouteRecordRaw,
 } from 'vue-router'
 
-import NoteEdit from './components/NoteEdit.vue'
-import NoteItem from './components/NoteItem.vue'
-import TheHome from './components/TheHome.vue'
+import { NoteEdit, NoteItem } from '@/components/note'
+import { HomeView } from '@/views'
 
 const routes = [
   {
     path: '/:id?',
     name: 'Home',
-    component: TheHome,
+    component: HomeView,
     children: [
       { path: '', component: NoteItem },
       { path: 'edit', component: NoteEdit },

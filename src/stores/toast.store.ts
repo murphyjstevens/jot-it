@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 
-import { ToastType } from '@/models/toast-type.enum'
-import type { Toast } from '@/models/toast.model'
+import { type Toast, ToastType } from '@/models'
 
 export const useToastStore = defineStore('toast', {
   state: () => ({

@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, type Ref } from 'vue'
 
-import type { Toast } from '@/models/toast.model'
-import { ToastType } from '@/models/toast-type.enum'
-import { useToastStore } from '@/stores/toast.store'
+import { type Toast, ToastType } from '@/models'
+import { useToastStore } from '@/stores'
 
 const toastStore = useToastStore()
 

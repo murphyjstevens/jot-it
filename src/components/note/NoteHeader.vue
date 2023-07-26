@@ -6,10 +6,10 @@ import {
   type RouteLocationNormalizedLoaded,
   type Router,
 } from 'vue-router'
-import { useNoteStore } from '@/stores/note.store'
-import { useSidebarStore } from '@/stores/sidebar.store'
+
+import { AppButton } from '@/components/library'
 import type { Note } from '@/models/note.model'
-import { AppButton } from './library'
+import { useNoteStore, useSidebarStore } from '@/stores'
 
 const route: RouteLocationNormalizedLoaded = useRoute()
 const router: Router = useRouter()
