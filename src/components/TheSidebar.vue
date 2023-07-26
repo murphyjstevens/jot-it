@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 import { AppButton } from '@/components/library'
 import type { Note } from '@/models/note.model'
 import { useNoteStore, useSidebarStore } from '@/stores'
 
-const route = useRoute()
 const router = useRouter()
 
 const noteStore = useNoteStore()
@@ -17,8 +15,6 @@ let dragAbove = false
 
 noteStore.load()
 
-defaultToFirstNote()
-
 function hideSidebar() {
   sidebarStore.show = false
 }
@@ -26,12 +22,6 @@ function hideSidebar() {
 function openNote(note: Note | null) {
   hideSidebar()
   router.push(`/${note?.id ?? 'new'}`)
-}
-
-function defaultToFirstNote() {
-  if (route.path === '' || route.path === '/') {
-    openNote(noteStore.notes.length ? noteStore.notes[0] : null)
-  }
 }
 
 function dragStart(index: number) {
@@ -100,13 +90,6 @@ function getNoteButton(element: any): any | null {
     return null
   }
 }
-
-watch(
-  () => route.path,
-  () => {
-    defaultToFirstNote()
-  }
-)
 </script>
 
 <template>

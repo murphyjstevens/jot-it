@@ -6,22 +6,31 @@ import {
 } from 'vue-router'
 
 import { NoteEdit, NoteItem } from '@/components/note'
-import { HomeView, SettingsView } from '@/views'
+import { HomeView, NewNoteView, NoteView, SettingsView } from '@/views'
 
 const routes = [
+  {
+    path: '',
+    name: 'Home',
+    component: HomeView,
+  },
+  {
+    path: '/new',
+    name: 'NewNote',
+    component: NewNoteView,
+  },
   {
     path: '/settings',
     name: 'Settings',
     component: SettingsView,
   },
   {
-    path: '/:id?',
-    name: 'Home',
-    component: HomeView,
+    path: '/:id',
+    name: 'Note',
+    component: NoteView,
     children: [
       { path: '', name: 'NoteItem', component: NoteItem },
       { path: 'edit', name: 'NoteEdit', component: NoteEdit },
-      { path: 'new', name: 'NoteNew', component: NoteEdit },
     ],
   },
 ] as Array<RouteRecordRaw>
