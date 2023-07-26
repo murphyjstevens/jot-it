@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, type Ref } from 'vue'
-import MarkdownIt from 'markdown-it'
 import highlightJs from 'highlight.js'
+import MarkdownIt from 'markdown-it'
 
 import iconList from '@/assets/bootstrap-icon-list.json'
 import { AppInput, AppSelect, AppTextarea } from '@/components/library'
