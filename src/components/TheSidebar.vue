@@ -97,7 +97,7 @@ function getNoteButton(element: any): any | null {
     class="-translate-x-full fixed h-full w-80 flex flex-col justify-stretch bg-zinc-900 border-r-2 border-zinc-700 z-20 transition-transform lg:translate-x-0 lg:relative"
     :class="{ '!translate-x-0': sidebarStore.show }"
   >
-    <h1 class="my-4 text-4xl text-center">
+    <h1 class="my-4 text-4xl text-center text-emerald-600">
       <a href="/">Jot-It</a>
     </h1>
     <hr class="border-zinc-700" />

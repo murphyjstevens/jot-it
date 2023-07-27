@@ -12,9 +12,3 @@
   position: relative;
   font-weight: normal;
 }
-
-a {
-  cursor: pointer;
-  color: rgb(16, 185, 129);
-  transition: 0.4s;
-}

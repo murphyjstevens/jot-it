@@ -57,3 +57,10 @@
   border: 1px solid rgba(84, 84, 84, 0.48);
   border-radius: 4px;
 }
+
+.markdown-display a {
+  cursor: pointer;
+  color: rgb(16, 185, 129);
+  text-decoration: underline;
+  transition: 0.4s;
+}
