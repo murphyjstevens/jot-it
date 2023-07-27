@@ -101,19 +101,21 @@ function getNoteButton(element: any): any | null {
       <a href="/">Jot-It</a>
     </h1>
     <hr class="border-zinc-700" />
-    <AppButton
+    <AppLinkButton
+      to="/new"
       class="mx-3 my-4 text-lg"
       color="primary"
       variant="default"
       @click="openNote(null)"
     >
       <i class="bi-plus-lg btn-lg"></i>
-    </AppButton>
+    </AppLinkButton>
     <div class="py-2 flex flex-col flex-1 overflow-y-auto">
-      <AppButton
+      <AppLinkButton
         v-for="(note, index) in noteStore.notes"
         v-bind:key="note.id"
         name="note-button"
+        :to="`/${note.id}`"
         @click="openNote(note)"
         draggable="true"
         @dragend="dragEnd()"
@@ -128,7 +130,7 @@ function getNoteButton(element: any): any | null {
       >
         <i class="mr-2" :class="[`bi-${note.icon ?? 'journal-text'}`]"></i>
         <span class="overflow-hidden text-ellipsis">{{ note.title }}</span>
-      </AppButton>
+      </AppLinkButton>
     </div>
 
     <AppLinkButton

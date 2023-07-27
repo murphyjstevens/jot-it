@@ -7,7 +7,7 @@ import {
   type Router,
 } from 'vue-router'
 
-import { AppButton } from '@/components/library'
+import { AppButton, AppLinkButton } from '@/components/library'
 import type { Note } from '@/models/note.model'
 import { useNoteStore, useSidebarStore } from '@/stores'
 
@@ -113,12 +113,13 @@ watch(
         {{ noteStore.currentNote.updatedDate.toLocaleString() }}
       </time>
 
-      <AppButton
+      <AppLinkButton
         v-if="!isEdit"
+        :to="`/${noteStore.currentNote.id}/edit`"
         variant="default"
         color="primary"
         @click="goToEdit()"
-        >Edit</AppButton
+        >Edit</AppLinkButton
       >
 
       <AppButton
