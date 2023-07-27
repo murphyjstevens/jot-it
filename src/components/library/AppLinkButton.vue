@@ -5,11 +5,13 @@ import { ButtonColor } from '@/models/library/button-color.enum'
 defineProps<{
   variant: ButtonVariant | string
   color: ButtonColor | string
+  to: string
 }>()
 </script>
 
 <template>
-  <button
+  <router-link
+    :to="to"
     class="group py-2 px-4 flex flex-row justify-center border border-transparent rounded-md cursor-pointer active:ring focus:ring disabled:opacity-20 disabled:pointer-events-none disabled:ring-0"
     :class="[
       {
@@ -18,6 +20,7 @@ defineProps<{
           variant === ButtonVariant.Default && color === ButtonColor.Primary,
         'text-emerald-600':
           variant === ButtonVariant.Text && color === ButtonColor.Primary,
+        'text-inherit': color === ButtonColor.Default,
       },
     ]"
   >
@@ -29,5 +32,5 @@ defineProps<{
     <!-- Button underlay (for click events) -->
     <span class="w-full h-full absolute top-0 left-0"></span>
     <slot></slot>
-  </button>
+  </router-link>
 </template>

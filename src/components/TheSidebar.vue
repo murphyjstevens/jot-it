@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 
-import { AppButton } from '@/components/library'
+import { AppButton, AppLinkButton } from '@/components/library'
 import type { Note } from '@/models/note.model'
 import { useNoteStore, useSidebarStore } from '@/stores'
 
@@ -109,7 +109,7 @@ function getNoteButton(element: any): any | null {
     >
       <i class="bi-plus-lg btn-lg"></i>
     </AppButton>
-    <div class="py-2 flex flex-col overflow-y-auto">
+    <div class="py-2 flex flex-col flex-1 overflow-y-auto">
       <AppButton
         v-for="(note, index) in noteStore.notes"
         v-bind:key="note.id"
@@ -130,6 +130,16 @@ function getNoteButton(element: any): any | null {
         <span class="overflow-hidden text-ellipsis">{{ note.title }}</span>
       </AppButton>
     </div>
+
+    <AppLinkButton
+      to="/settings"
+      variant="text"
+      color="default"
+      class="mb-4 mx-4"
+    >
+      <i class="mr-2 bi bi-gear-fill"></i>
+      <span class="overflow-hidden text-ellipsis">Settings</span>
+    </AppLinkButton>
   </aside>
   <div
     class="w-full h-full fixed right-0 flex bg-black opacity-0 transition-opacity pointer-events-none z-10 lg:hidden"
