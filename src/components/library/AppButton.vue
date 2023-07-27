@@ -23,7 +23,7 @@ defineProps<{
   >
     <!-- Button overlay (for hover shading) -->
     <span
-      class="w-full h-full absolute top-0 left-0 bg-white opacity-0 border rounded-md pointer-events-none group-hover:opacity-10 group-disabled:pointer-events-auto group-disabled:cursor-not-allowed group-disabled:opacity-0"
+      class="w-full h-full absolute top-0 left-0 bg-white opacity-0 border rounded-md transition-opacity pointer-events-none group-hover:opacity-10 group-disabled:pointer-events-auto group-disabled:cursor-not-allowed group-disabled:opacity-0"
     ></span>
 
     <!-- Button underlay (for click events) -->
