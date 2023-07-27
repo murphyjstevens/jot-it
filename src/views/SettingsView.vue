@@ -4,9 +4,10 @@ import JsZip from 'jszip'
 
 import { AppButton } from '@/components/library'
 import type { Note } from '@/models'
-import { useNoteStore } from '@/stores'
+import { useNoteStore, useSidebarStore } from '@/stores'
 
 const noteStore = useNoteStore()
+const sidebarStore = useSidebarStore()
 
 async function exportData() {
   const zip = new JsZip()
@@ -17,12 +18,26 @@ async function exportData() {
   const content = await zip.generateAsync({ type: 'blob' })
   saveAs(content, 'export.zip')
 }
+
+function showSidebar() {
+  sidebarStore.show = true
+}
 </script>
 
 <template>
-  <main class="p-2 flex flex-col flex-1">
-    <h1 class="m-3 text-3xl">Settings</h1>
-    <hr />
+  <main class="flex flex-col flex-1">
+    <div class="my-2 px-2 flex flex-row items-center">
+      <AppButton
+        class="me-2 lg:hidden"
+        variant="text"
+        color="primary"
+        @click="showSidebar()"
+      >
+        <i class="bi-list"></i>
+      </AppButton>
+
+      <h1 class="text-3xl">Settings</h1>
+    </div>
 
     <h2 class="m-2 text-2xl">Data</h2>
 

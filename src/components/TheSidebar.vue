@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import { AppLinkButton } from '@/components/library'
 import type { Note } from '@/models/note.model'
 import { useNoteStore, useSidebarStore } from '@/stores'
+import { watch } from 'vue'
 
 const router = useRouter()
+const route = useRoute()
 
 const noteStore = useNoteStore()
 const sidebarStore = useSidebarStore()
@@ -90,6 +92,13 @@ function getNoteButton(element: any): any | null {
     return null
   }
 }
+
+watch(
+  () => route.params,
+  () => {
+    sidebarStore.show = false
+  }
+)
 </script>
 
 <template>
