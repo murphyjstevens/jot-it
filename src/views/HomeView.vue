@@ -10,13 +10,10 @@ const router = useRouter()
 
 const noteStore = useNoteStore()
 
-function openNote(note: Note | null) {
-  router.push(`/${note?.id ?? 'new'}`)
-}
-
 function defaultToFirstNote() {
   if (route.path === '' || route.path === '/') {
-    openNote(noteStore.notes.length ? noteStore.notes[0] : null)
+    const note: Note | null = noteStore.notes.length ? noteStore.notes[0] : null
+    router.replace(`/${note?.id ?? 'new'}`)
   }
 }
 

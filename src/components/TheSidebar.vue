@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 
-import { AppButton, AppLinkButton } from '@/components/library'
+import { AppLinkButton } from '@/components/library'
 import type { Note } from '@/models/note.model'
 import { useNoteStore, useSidebarStore } from '@/stores'
 
